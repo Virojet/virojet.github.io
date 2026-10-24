@@ -1,0 +1,354 @@
+[
+  {
+    "slug": "better-hud",
+    "repo": "Shell-Shockers-Better-Hud-Mod",
+    "file": "Shell-Shockers-Better-Hud.user.js",
+    "group": "Core",
+    "name": "Shell Shockers Better UI",
+    "version": "6.1.17",
+    "description": "Customize your crosshair, see your performance, and keep every match in view. BetterHUD brings the tools together inside Shell Shockers.",
+    "downloadURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Better-Hud-Mod/main/Shell-Shockers-Better-Hud.user.js",
+    "updateURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Better-Hud-Mod/main/Shell-Shockers-Better-Hud.meta.js",
+    "source": "https://github.com/Virojet/Shell-Shockers-Better-Hud-Mod/blob/main/Shell-Shockers-Better-Hud.user.js",
+    "install": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Better-Hud-Mod/main/Shell-Shockers-Better-Hud.user.js",
+    "repository": "https://github.com/Virojet/Shell-Shockers-Better-Hud-Mod",
+    "title": "BetterHUD",
+    "category": "Core",
+    "summary": "A cleaner HUD. A setup that feels like yours.",
+    "features": [
+      [
+        "Crosshair editor",
+        "Build, save, import and switch between your crosshair profiles."
+      ],
+      [
+        "HUD and performance",
+        "Customize FPS and ping displays, HUD elements and effects."
+      ],
+      [
+        "Match history",
+        "Review live scores and saved matches, with filters and exports."
+      ],
+      [
+        "Server picker",
+        "Choose your region from the home screen with live ping."
+      ]
+    ],
+    "settings": "Open Shell Shockers Settings, then choose MODS or CROSSHAIR.",
+    "note": "Match History is included. You do not need the standalone Stats Mod alongside BetterHUD.",
+    "mark": "crosshair",
+    "verified_on": "2026-10-25"
+  },
+  {
+    "slug": "mod-menu",
+    "repo": "Shell-Shockers-Mod-Menu",
+    "file": "Shell-Shockers-Mod-Menu.user.js",
+    "group": "Core",
+    "name": "Shell Shockers Mod Menu",
+    "version": "1.4.0",
+    "description": "Add userscripts, choose a theme, and manage the mods you use from a single in-game menu.",
+    "downloadURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Mod-Menu/main/Shell-Shockers-Mod-Menu.user.js",
+    "updateURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Mod-Menu/main/Shell-Shockers-Mod-Menu.user.js",
+    "source": "https://github.com/Virojet/Shell-Shockers-Mod-Menu/blob/main/Shell-Shockers-Mod-Menu.user.js",
+    "install": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Mod-Menu/main/Shell-Shockers-Mod-Menu.user.js",
+    "repository": "https://github.com/Virojet/Shell-Shockers-Mod-Menu",
+    "title": "Mod Menu",
+    "category": "Core",
+    "summary": "One place for your entire mod setup.",
+    "features": [
+      [
+        "Add your scripts",
+        "Add a script by URL, pasted code or a .user.js file."
+      ],
+      [
+        "Switch your setup",
+        "Manage supported mods and select one active theme."
+      ],
+      [
+        "Keep your choices",
+        "Your installed scripts and preferences stay in your browser."
+      ]
+    ],
+    "settings": "Press the backtick key below Esc, or click the puzzle-piece icon next to the settings gear on the home screen.",
+    "note": "If Mod Menu runs a script, disable that script's separate Tampermonkey copy. Some changes need a game reload to fully apply or remove.",
+    "mark": "grid",
+    "verified_on": "2026-10-25"
+  },
+  {
+    "slug": "stats",
+    "repo": "Shell-Shockers-Stats-Mod",
+    "file": "Shell-Shockers-Stats-Mod.user.js",
+    "group": "Core",
+    "name": "Shell Shockers Stats Mod",
+    "version": "2.0.3",
+    "description": "Keep kills, deaths and KDR from your matches. Revisit scoreboards, filter your history and share the results.",
+    "downloadURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Stats-Mod/main/Shell-Shockers-Stats-Mod.user.js",
+    "updateURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Stats-Mod/main/Shell-Shockers-Stats-Mod.user.js",
+    "source": "https://github.com/Virojet/Shell-Shockers-Stats-Mod/blob/main/Shell-Shockers-Stats-Mod.user.js",
+    "install": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Stats-Mod/main/Shell-Shockers-Stats-Mod.user.js",
+    "repository": "https://github.com/Virojet/Shell-Shockers-Stats-Mod",
+    "title": "Stats Mod",
+    "category": "Core",
+    "summary": "Your matches, beyond the final scoreboard.",
+    "features": [
+      [
+        "Match history",
+        "Review saved matches by map or game mode."
+      ],
+      [
+        "Live scoreboard",
+        "Check kills, deaths and KDR while a match is in progress."
+      ],
+      [
+        "Export and share",
+        "Export JSON or CSV, or save a scoreboard as an image."
+      ]
+    ],
+    "settings": "Use the round Match History button on the home screen, or set its shortcut in Settings > Keybindings.",
+    "note": "Already using BetterHUD? Match History is built in. The standalone Stats Mod stays inactive while BetterHUD runs, and both share the same history.",
+    "mark": "chart",
+    "verified_on": "2026-10-25"
+  },
+  {
+    "slug": "valorant-sensitivity",
+    "repo": "Shell-Shockers-Valorant-Sensitivity",
+    "file": "Shell-Shockers-Valorant-Sensitivity.user.js",
+    "group": "Controls",
+    "name": "Shell Shockers Valorant Sensitivity",
+    "version": "1.0.0",
+    "description": "Set your Valorant sensitivity in Shell Shockers, with separate scoped and ADS multipliers. Keep the same mouse DPI for a consistent setup.",
+    "downloadURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Valorant-Sensitivity/main/Shell-Shockers-Valorant-Sensitivity.user.js",
+    "updateURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Valorant-Sensitivity/main/Shell-Shockers-Valorant-Sensitivity.user.js",
+    "source": "https://github.com/Virojet/Shell-Shockers-Valorant-Sensitivity/blob/main/Shell-Shockers-Valorant-Sensitivity.user.js",
+    "install": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Valorant-Sensitivity/main/Shell-Shockers-Valorant-Sensitivity.user.js",
+    "repository": "https://github.com/Virojet/Shell-Shockers-Valorant-Sensitivity",
+    "title": "Valorant Sensitivity",
+    "category": "Controls",
+    "summary": "Bring your familiar sensitivity with you.",
+    "features": [
+      [
+        "Your sensitivity",
+        "Enter your Valorant sensitivity directly."
+      ],
+      [
+        "ADS and scoped",
+        "Set the multipliers you use for aiming and scopes."
+      ],
+      [
+        "Local settings import",
+        "Optionally read your Valorant settings. Files stay on your computer."
+      ]
+    ],
+    "settings": "Open Settings > the keyboard tab. Valorant Sensitivity appears under Mouse Speed. Set the values and press Confirm.",
+    "note": "Keep your mouse at the same DPI as in Valorant. Conversion behavior is documented by the project.",
+    "mark": "sliders",
+    "verified_on": "2026-10-25"
+  },
+  {
+    "slug": "gun-sounds",
+    "repo": "Shell-Shockers-Gun-Sounds",
+    "file": "Shell-Shockers-Gun-Sounds.user.js",
+    "group": "Audio",
+    "name": "Shell Shockers Gun Sounds",
+    "version": "1.6.2",
+    "description": "Choose gunshots, reloads, melee sounds and empty clicks. Use built-in choices, a meme sound, or a local audio file.",
+    "downloadURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Gun-Sounds/main/Shell-Shockers-Gun-Sounds.user.js",
+    "updateURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Gun-Sounds/main/Shell-Shockers-Gun-Sounds.user.js",
+    "source": "https://github.com/Virojet/Shell-Shockers-Gun-Sounds/blob/main/Shell-Shockers-Gun-Sounds.user.js",
+    "install": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Gun-Sounds/main/Shell-Shockers-Gun-Sounds.user.js",
+    "repository": "https://github.com/Virojet/Shell-Shockers-Gun-Sounds",
+    "title": "Gun Sounds",
+    "category": "Audio",
+    "summary": "Give every weapon its own sound.",
+    "features": [
+      [
+        "Per-weapon choices",
+        "Choose shots and reloads for each primary gun."
+      ],
+      [
+        "More than gunshots",
+        "Customize pistol, melee, reload and empty-click sounds."
+      ],
+      [
+        "Your own audio",
+        "Use local MP3, OGG or WAV files, with volume controls."
+      ]
+    ],
+    "settings": "Open Settings > the speaker tab > Gun Sounds, under Language and Kill Sounds. Expand the Gun Sounds heading, choose your sounds, then press Confirm.",
+    "note": "No audio plays on this website. The mod's own volume works alongside the game's Sound Effects volume.",
+    "mark": "wave",
+    "verified_on": "2026-10-25"
+  },
+  {
+    "slug": "valorant-kill-sounds",
+    "repo": "Shell-Shockers-Valorant-Kill-Sounds",
+    "file": "Shell-Shockers-Valorant-Kill-Sounds.user.js",
+    "group": "Audio",
+    "name": "Shell Shockers Valorant Kill Sounds",
+    "version": "1.2.1",
+    "description": "Add a sound and banner to each of your kills, rising through your streak. Choose a sound pack or bring your own files.",
+    "downloadURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Valorant-Kill-Sounds/main/Shell-Shockers-Valorant-Kill-Sounds.user.js",
+    "updateURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Valorant-Kill-Sounds/main/Shell-Shockers-Valorant-Kill-Sounds.user.js",
+    "source": "https://github.com/Virojet/Shell-Shockers-Valorant-Kill-Sounds/blob/main/Shell-Shockers-Valorant-Kill-Sounds.user.js",
+    "install": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Valorant-Kill-Sounds/main/Shell-Shockers-Valorant-Kill-Sounds.user.js",
+    "repository": "https://github.com/Virojet/Shell-Shockers-Valorant-Kill-Sounds",
+    "title": "Valorant Kill Sounds",
+    "category": "Audio",
+    "summary": "A little more impact with every streak.",
+    "features": [
+      [
+        "Streak progression",
+        "Sounds and banners step up through your first five kills."
+      ],
+      [
+        "Sound packs",
+        "Choose five original packs or fifteen Valorant packs."
+      ],
+      [
+        "Custom files",
+        "Use your own audio and adjust the volume in-game."
+      ]
+    ],
+    "settings": "Open Settings > the speaker tab > Kill Sounds. Select a pack, use Test, then press Confirm.",
+    "note": "Works alongside BetterHUD. The effects reflect your own kills and existing game feedback.",
+    "mark": "spark",
+    "verified_on": "2026-10-25"
+  },
+  {
+    "slug": "cherry-blossom",
+    "repo": "Shell-Shockers-Cherry-Blossom-Theme",
+    "file": "Shell-Shockers-Cherry-Blossom.user.js",
+    "group": "Themes",
+    "name": "Shell Shockers Cherry Blossom Theme",
+    "version": "2.1",
+    "description": "Pink and plum menus, a blossom loading screen, and drifting petals that step out of the way while you aim.",
+    "downloadURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Cherry-Blossom-Theme/main/Shell-Shockers-Cherry-Blossom.user.js",
+    "updateURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Cherry-Blossom-Theme/main/Shell-Shockers-Cherry-Blossom.user.js",
+    "source": "https://github.com/Virojet/Shell-Shockers-Cherry-Blossom-Theme/blob/main/Shell-Shockers-Cherry-Blossom.user.js",
+    "install": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Cherry-Blossom-Theme/main/Shell-Shockers-Cherry-Blossom.user.js",
+    "repository": "https://github.com/Virojet/Shell-Shockers-Cherry-Blossom-Theme",
+    "title": "Cherry Blossom",
+    "category": "Themes",
+    "summary": "A softer look for your next match.",
+    "features": [
+      [
+        "Pink and plum",
+        "Theme menus, panels, buttons and text fields."
+      ],
+      [
+        "Falling petals",
+        "Petals hide during aiming to keep the view clear."
+      ],
+      [
+        "Clear team colors",
+        "Team colors remain recognizable."
+      ]
+    ],
+    "settings": "Reload Shell Shockers after installing. The theme applies automatically. Disable it in Tampermonkey and reload to return to the normal theme.",
+    "note": "Use one theme at a time. Running multiple themes together can mix their colors.",
+    "mark": "flower",
+    "verified_on": "2026-10-25"
+  },
+  {
+    "slug": "blossom-v4",
+    "repo": "Shell-Shockers-Blossom-V4-Theme",
+    "file": "Shell-Shockers-Blossom-V4.user.js",
+    "group": "Themes",
+    "name": "Blossom V4 Theme",
+    "version": "4.0.1",
+    "description": "Black and pink menus over cherry blossom art, a pink HUD, and the familiar You blossomed messages, updated for current Shell Shockers.",
+    "downloadURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Blossom-V4-Theme/main/Shell-Shockers-Blossom-V4.user.js",
+    "updateURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Blossom-V4-Theme/main/Shell-Shockers-Blossom-V4.user.js",
+    "source": "https://github.com/Virojet/Shell-Shockers-Blossom-V4-Theme/blob/main/Shell-Shockers-Blossom-V4.user.js",
+    "install": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Blossom-V4-Theme/main/Shell-Shockers-Blossom-V4.user.js",
+    "repository": "https://github.com/Virojet/Shell-Shockers-Blossom-V4-Theme",
+    "title": "Blossom V4",
+    "category": "Themes",
+    "summary": "The blossom look, rebuilt.",
+    "features": [
+      [
+        "Blossom artwork",
+        "Carry the artwork through menus, popups and the loading screen."
+      ],
+      [
+        "Pink HUD",
+        "Theme the health bar, crosshair, chat and streak elements."
+      ],
+      [
+        "BetterHUD compatible",
+        "Your BetterHUD crosshair settings keep priority."
+      ]
+    ],
+    "settings": "Reload Shell Shockers. The theme applies automatically and can be managed through Tampermonkey or Mod Menu.",
+    "note": "Use one theme at a time. V4 by Virojet; original Blossom V2/V3 by ThatOneGuySS; original art hosting by Foggier01.",
+    "mark": "flower",
+    "verified_on": "2026-10-25"
+  },
+  {
+    "slug": "sidebar-test",
+    "repo": "Shell-Shockers-Better-Hud-Sidebar-Test",
+    "file": "Shell-Shockers-Better-Hud.sidebar-test.user.js",
+    "group": "Experimental",
+    "name": "Shell Shockers Better UI (sidebar test)",
+    "version": "5.2.3",
+    "description": "An experimental BetterHUD build based on v5.2.3, with a section sidebar in the MODS tab. Intended for testing.",
+    "source": "https://github.com/Virojet/Shell-Shockers-Better-Hud-Sidebar-Test/blob/main/Shell-Shockers-Better-Hud.sidebar-test.user.js",
+    "install": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Better-Hud-Sidebar-Test/main/Shell-Shockers-Better-Hud.sidebar-test.user.js",
+    "repository": "https://github.com/Virojet/Shell-Shockers-Better-Hud-Sidebar-Test",
+    "title": "BetterHUD Sidebar Test",
+    "category": "Experimental",
+    "summary": "Explore an earlier sidebar build.",
+    "features": [
+      [
+        "Sidebar navigation",
+        "Browse one MODS section at a time."
+      ],
+      [
+        "Pause-menu placement",
+        "Tests placement relative to the game's top HUD."
+      ],
+      [
+        "Separate test build",
+        "Installs with its own name, alongside the release script."
+      ]
+    ],
+    "settings": "Disable the regular BetterHUD script before testing, then reload Shell Shockers and open the MODS tab.",
+    "note": "Experimental and older than the stable release. This build does not auto-update. Do not run it together with the regular BetterHUD script.",
+    "mark": "flask",
+    "verified_on": "2026-10-25"
+  },
+  {
+    "slug": "hide-youtube-feed",
+    "repo": "Hide-youtube-feed",
+    "file": "hide-youtube-feed.user.js",
+    "group": "Other tools",
+    "name": "Hide YouTube Home Feed",
+    "version": "1.0.0",
+    "description": "Keep the desktop YouTube home feed empty while search, subscriptions, channels and video pages remain available.",
+    "downloadURL": "https://raw.githubusercontent.com/Virojet/Hide-youtube-feed/HEAD/hide-youtube-feed.user.js",
+    "updateURL": "https://raw.githubusercontent.com/Virojet/Hide-youtube-feed/HEAD/hide-youtube-feed.user.js",
+    "source": "https://github.com/Virojet/Hide-youtube-feed/blob/claude/youtube-feed-hiding-script-5rqfds/hide-youtube-feed.user.js",
+    "install": "https://raw.githubusercontent.com/Virojet/Hide-youtube-feed/HEAD/hide-youtube-feed.user.js",
+    "repository": "https://github.com/Virojet/Hide-youtube-feed",
+    "title": "Hide YouTube Home Feed",
+    "category": "Other tools",
+    "summary": "Open YouTube with a little more intention.",
+    "features": [
+      [
+        "Empty home feed",
+        "Hide home recommendations, Shorts shelves and promotions."
+      ],
+      [
+        "Keep the essentials",
+        "Search, subscriptions, channels and video pages remain available."
+      ],
+      [
+        "Desktop userscript",
+        "Runs on the desktop website through your userscript manager."
+      ]
+    ],
+    "settings": "Reload an open desktop YouTube tab, then open the home page. Search for a video to verify that search remains available.",
+    "note": "Desktop YouTube only. The mobile website and native apps are not supported.",
+    "mark": "play",
+    "verified_on": "2026-10-25"
+  }
+]
