@@ -5,8 +5,8 @@
     "file": "Shell-Shockers-Better-Hud.user.js",
     "group": "Core",
     "name": "Shell Shockers Better UI",
-    "version": "6.1.21",
-    "description": "Customize your crosshair, see your performance, and keep every match in view. BetterHUD brings the tools together inside Shell Shockers.",
+    "version": "6.3.0",
+    "description": "FPS, Ping, HUD controls, match stats history, crosshair, performance tweaks, and styled Server Selector integrated into the native UI.",
     "downloadURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Better-Hud-Mod/main/Shell-Shockers-Better-Hud.user.js",
     "updateURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Better-Hud-Mod/main/Shell-Shockers-Better-Hud.meta.js",
     "source": "https://github.com/Virojet/Shell-Shockers-Better-Hud-Mod/blob/main/Shell-Shockers-Better-Hud.user.js",
@@ -36,7 +36,7 @@
     "settings": "Open Shell Shockers Settings, then choose MODS or CROSSHAIR.",
     "note": "Match History is included. You do not need the standalone Stats Mod alongside BetterHUD.",
     "mark": "crosshair",
-    "verified_on": "2026-10-25"
+    "verified_on": "2026-11-11"
   },
   {
     "slug": "mod-menu",
@@ -44,8 +44,8 @@
     "file": "Shell-Shockers-Mod-Menu.user.js",
     "group": "Core",
     "name": "Shell Shockers Mod Menu",
-    "version": "1.5.0",
-    "description": "Add userscripts, choose a theme, and manage the mods you use from a single in-game menu.",
+    "version": "1.7.1",
+    "description": "One menu for your Shell Shockers mods. Add any userscript, switch themes and turn mods on or off without reloading.",
     "downloadURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Mod-Menu/main/Shell-Shockers-Mod-Menu.user.js",
     "updateURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Mod-Menu/main/Shell-Shockers-Mod-Menu.user.js",
     "source": "https://github.com/Virojet/Shell-Shockers-Mod-Menu/blob/main/Shell-Shockers-Mod-Menu.user.js",
@@ -71,7 +71,7 @@
     "settings": "Press the backtick key below Esc, or click the puzzle-piece icon next to the settings gear on the home screen.",
     "note": "If Mod Menu runs a script, disable that script's separate Tampermonkey copy. Some changes need a game reload to fully apply or remove.",
     "mark": "grid",
-    "verified_on": "2026-10-25"
+    "verified_on": "2026-11-11"
   },
   {
     "slug": "stats",
@@ -106,7 +106,7 @@
     "settings": "Use the round Match History button on the home screen, or set its shortcut in Settings > Keybindings.",
     "note": "Already using BetterHUD? Match History is built in. The standalone Stats Mod stays inactive while BetterHUD runs, and both share the same history.",
     "mark": "chart",
-    "verified_on": "2026-10-25"
+    "verified_on": "2026-11-11"
   },
   {
     "slug": "valorant-sensitivity",
@@ -141,7 +141,7 @@
     "settings": "Open Settings > the keyboard tab. Valorant Sensitivity appears under Mouse Speed. Set the values and press Confirm.",
     "note": "Keep your mouse at the same DPI as in Valorant. Conversion behavior is documented by the project.",
     "mark": "sliders",
-    "verified_on": "2026-10-25"
+    "verified_on": "2026-11-11"
   },
   {
     "slug": "gun-sounds",
@@ -176,7 +176,7 @@
     "settings": "Open Settings > the speaker tab > Gun Sounds, under Language and Kill Sounds. Expand the Gun Sounds heading, choose your sounds, then press Confirm.",
     "note": "No audio plays on this website. The mod's own volume works alongside the game's Sound Effects volume.",
     "mark": "wave",
-    "verified_on": "2026-10-25"
+    "verified_on": "2026-11-11"
   },
   {
     "slug": "valorant-kill-sounds",
@@ -211,7 +211,7 @@
     "settings": "Open Settings > the speaker tab > Kill Sounds. Select a pack, use Test, then press Confirm.",
     "note": "Works alongside BetterHUD. The effects reflect your own kills and existing game feedback.",
     "mark": "spark",
-    "verified_on": "2026-10-25"
+    "verified_on": "2026-11-11"
   },
   {
     "slug": "cherry-blossom",
@@ -246,7 +246,7 @@
     "settings": "Reload Shell Shockers after installing. The theme applies automatically. Disable it in Tampermonkey and reload to return to the normal theme.",
     "note": "Use one theme at a time. Running multiple themes together can mix their colors.",
     "mark": "flower",
-    "verified_on": "2026-10-25"
+    "verified_on": "2026-11-11"
   },
   {
     "slug": "blossom-v4",
@@ -254,8 +254,8 @@
     "file": "Shell-Shockers-Blossom-V4.user.js",
     "group": "Themes",
     "name": "Blossom V4 Theme",
-    "version": "4.0.2",
-    "description": "Black and pink menus over cherry blossom art, a pink HUD, and the familiar You blossomed messages, updated for current Shell Shockers.",
+    "version": "4.0.3",
+    "description": "Revamped Blossom V3 for today's Shell Shockers: black and pink menus over cherry blossom art, a pink HUD and \"You blossomed\" kill messages. CSS only.",
     "downloadURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Blossom-V4-Theme/main/Shell-Shockers-Blossom-V4.user.js",
     "updateURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Blossom-V4-Theme/main/Shell-Shockers-Blossom-V4.user.js",
     "source": "https://github.com/Virojet/Shell-Shockers-Blossom-V4-Theme/blob/main/Shell-Shockers-Blossom-V4.user.js",
@@ -281,7 +281,77 @@
     "settings": "Reload Shell Shockers. The theme applies automatically and can be managed through Tampermonkey or Mod Menu.",
     "note": "Use one theme at a time. V4 by Virojet; original Blossom V2/V3 by ThatOneGuySS; original art hosting by Foggier01.",
     "mark": "flower",
-    "verified_on": "2026-10-25"
+    "verified_on": "2026-11-11"
+  },
+  {
+    "slug": "smoke-logo",
+    "repo": "Shell-Shockers-Smoke-Logo",
+    "file": "Shell-Shockers-Smoke-Logo.user.js",
+    "group": "Themes",
+    "name": "Shell Shockers Smoke Logo",
+    "version": "1.0.1",
+    "description": "Put your own picture on the smoke of grenade and rocket blasts. The puffs keep the game's shape, size and fade, and only you see it.",
+    "downloadURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Smoke-Logo/main/Shell-Shockers-Smoke-Logo.user.js",
+    "updateURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Smoke-Logo/main/Shell-Shockers-Smoke-Logo.user.js",
+    "source": "https://github.com/Virojet/Shell-Shockers-Smoke-Logo/blob/main/Shell-Shockers-Smoke-Logo.user.js",
+    "install": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Smoke-Logo/main/Shell-Shockers-Smoke-Logo.user.js",
+    "repository": "https://github.com/Virojet/Shell-Shockers-Smoke-Logo",
+    "title": "Smoke Logo",
+    "category": "Themes",
+    "summary": "Put your picture on blast smoke.",
+    "features": [
+      [
+        "Your picture",
+        "Choose a local image for grenade and rocket blast smoke."
+      ],
+      [
+        "Familiar smoke",
+        "The puffs keep their shape, size, opacity and fade."
+      ],
+      [
+        "On your screen",
+        "Only you see the picture on the smoke."
+      ]
+    ],
+    "settings": "Open Settings > the third tab with the screen and speaker icons > Smoke Logo. Choose an image, tick Show on grenade smoke, then press Confirm.",
+    "note": "Supports PNG, JPG, GIF, WebP and SVG images under 8 MB. Settings and the picture are kept per site.",
+    "mark": "spark",
+    "verified_on": "2026-11-11"
+  },
+  {
+    "slug": "shellstrike-mod",
+    "repo": "Shell-Shockers-Shellstrike-Mod",
+    "file": "Shell-Shockers-Shellstrike-Mod.user.js",
+    "group": "Themes",
+    "name": "Shellshockers Shellstrike Mod",
+    "version": "1.0.3",
+    "description": "Fixed Shellstrike logos on blast smoke, yolk bursts and shell fragments. No settings.",
+    "downloadURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Shellstrike-Mod/main/Shell-Shockers-Shellstrike-Mod.user.js",
+    "updateURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Shellstrike-Mod/main/Shell-Shockers-Shellstrike-Mod.meta.js",
+    "source": "https://github.com/Virojet/Shell-Shockers-Shellstrike-Mod/blob/main/Shell-Shockers-Shellstrike-Mod.user.js",
+    "install": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Shellstrike-Mod/main/Shell-Shockers-Shellstrike-Mod.user.js",
+    "repository": "https://github.com/Virojet/Shell-Shockers-Shellstrike-Mod",
+    "title": "Shellstrike Mod",
+    "category": "Themes",
+    "summary": "A Shellstrike look for blast effects.",
+    "features": [
+      [
+        "Blast smoke",
+        "Add the Shellstrike logo to grenade and rocket blast smoke."
+      ],
+      [
+        "More effects",
+        "Show the logo on yolk bursts and shell fragments."
+      ],
+      [
+        "On your screen",
+        "Other players keep seeing the game's effects."
+      ]
+    ],
+    "settings": "Shellstrike has no settings. Install it, reload Shell Shockers, then throw a grenade or rocket to see the effect.",
+    "note": "The fixed logo is embedded in the script. Use one particle-texture preset at a time.",
+    "mark": "spark",
+    "verified_on": "2026-11-11"
   },
   {
     "slug": "sidebar-test",
