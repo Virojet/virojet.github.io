@@ -5,7 +5,7 @@
     "file": "Shell-Shockers-Better-Hud.user.js",
     "group": "Core",
     "name": "Shell Shockers Better UI",
-    "version": "6.3.0",
+    "version": "6.5.3",
     "description": "FPS, Ping, HUD controls, match stats history, crosshair, performance tweaks, and styled Server Selector integrated into the native UI.",
     "downloadURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Better-Hud-Mod/main/Shell-Shockers-Better-Hud.user.js",
     "updateURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Better-Hud-Mod/main/Shell-Shockers-Better-Hud.meta.js",
@@ -36,7 +36,7 @@
     "settings": "Open Shell Shockers Settings, then choose MODS or CROSSHAIR.",
     "note": "Match History is included. You do not need the standalone Stats Mod alongside BetterHUD.",
     "mark": "crosshair",
-    "verified_on": "2026-11-11"
+    "verified_on": "2026-11-12"
   },
   {
     "slug": "mod-menu",
@@ -44,7 +44,7 @@
     "file": "Shell-Shockers-Mod-Menu.user.js",
     "group": "Core",
     "name": "Shell Shockers Mod Menu",
-    "version": "1.7.1",
+    "version": "1.8.0",
     "description": "One menu for your Shell Shockers mods. Add any userscript, switch themes and turn mods on or off without reloading.",
     "downloadURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Mod-Menu/main/Shell-Shockers-Mod-Menu.user.js",
     "updateURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Mod-Menu/main/Shell-Shockers-Mod-Menu.user.js",
@@ -71,7 +71,7 @@
     "settings": "Press the backtick key below Esc, or click the puzzle-piece icon next to the settings gear on the home screen.",
     "note": "If Mod Menu runs a script, disable that script's separate Tampermonkey copy. Some changes need a game reload to fully apply or remove.",
     "mark": "grid",
-    "verified_on": "2026-11-11"
+    "verified_on": "2026-11-12"
   },
   {
     "slug": "stats",
@@ -142,6 +142,41 @@
     "note": "Keep your mouse at the same DPI as in Valorant. Conversion behavior is documented by the project.",
     "mark": "sliders",
     "verified_on": "2026-11-11"
+  },
+  {
+    "slug": "crosshair-mod",
+    "repo": "Shell-Shockers-Crosshair-Mod",
+    "file": "Shell-Shockers-Crosshair-Mod.user.js",
+    "group": "Controls",
+    "name": "Shell Shockers Crosshair Mod",
+    "version": "1.0.0",
+    "description": "BetterHUD's crosshair editor on its own: arms, center dot, outlines, saved profiles and Valorant code import, in a CROSSHAIR tab in Settings.",
+    "downloadURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Crosshair-Mod/main/Shell-Shockers-Crosshair-Mod.user.js",
+    "updateURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Crosshair-Mod/main/Shell-Shockers-Crosshair-Mod.meta.js",
+    "source": "https://github.com/Virojet/Shell-Shockers-Crosshair-Mod/blob/main/Shell-Shockers-Crosshair-Mod.user.js",
+    "install": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Crosshair-Mod/main/Shell-Shockers-Crosshair-Mod.user.js",
+    "repository": "https://github.com/Virojet/Shell-Shockers-Crosshair-Mod",
+    "title": "Crosshair Mod",
+    "category": "Controls",
+    "summary": "Just the crosshair editor.",
+    "features": [
+      [
+        "Crosshair editor",
+        "Arms, center dot, outlines and a live preview."
+      ],
+      [
+        "Saved profiles",
+        "Starter profiles and a gallery you can reorder."
+      ],
+      [
+        "Share codes",
+        "Import Valorant and X- codes, or export your own."
+      ]
+    ],
+    "settings": "Open Shell Shockers Settings, then choose CROSSHAIR.",
+    "note": "It shares its saved crosshairs with BetterHUD and steps aside when BetterHUD runs, so you only need one of them.",
+    "mark": "crosshair",
+    "verified_on": "2026-11-12"
   },
   {
     "slug": "gun-sounds",
@@ -289,7 +324,7 @@
     "file": "Shell-Shockers-Smoke-Logo.user.js",
     "group": "Themes",
     "name": "Shell Shockers Smoke Logo",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Put your own picture on the smoke of grenade and rocket blasts. The puffs keep the game's shape, size and fade, and only you see it.",
     "downloadURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Smoke-Logo/main/Shell-Shockers-Smoke-Logo.user.js",
     "updateURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Smoke-Logo/main/Shell-Shockers-Smoke-Logo.user.js",
@@ -316,7 +351,7 @@
     "settings": "Open Settings > the third tab with the screen and speaker icons > Smoke Logo. Choose an image, tick Show on grenade smoke, then press Confirm.",
     "note": "Supports PNG, JPG, GIF, WebP and SVG images under 8 MB. Settings and the picture are kept per site.",
     "mark": "spark",
-    "verified_on": "2026-11-11"
+    "verified_on": "2026-11-12"
   },
   {
     "slug": "shellstrike-mod",
