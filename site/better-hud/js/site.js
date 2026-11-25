@@ -1076,6 +1076,85 @@
   if (reduce.addEventListener) reduce.addEventListener("change", onReduce);
 
   /* ───────── Page: nav, active section, reveal on scroll, logo entrance ───────── */
+  // Smooth the page's vertical wheel input. Touch, keyboard and anchor navigation stay native.
+  const enableSmoothWheel = () => {
+    const scroller = document.scrollingElement;
+    if (!scroller) return;
+    let frame = null;
+    let target = 0;
+    let position = 0;
+    let lastScrollY = 0;
+    let lastFrameTime = 0;
+
+    const maxScroll = () => scroller.scrollHeight - scroller.clientHeight;
+    const stop = () => {
+      if (frame !== null) cancelAnimationFrame(frame);
+      frame = null;
+    };
+
+    const draw = time => {
+      if (reduce.matches || Math.abs(scrollY - lastScrollY) > 1) {
+        stop();
+        return;
+      }
+
+      target = clamp(target, 0, maxScroll());
+      const distance = target - position;
+      const settled = Math.abs(distance) <= .5;
+      const elapsed = clamp(time - lastFrameTime, 0, 50);
+      // Time-based easing keeps the same feel at different refresh rates.
+      position = settled ? target : position + distance * (1 - Math.exp(-elapsed / 65));
+      scrollTo({ top: position, behavior: "instant" });
+      lastScrollY = scrollY;
+      lastFrameTime = time;
+      frame = settled ? null : requestAnimationFrame(draw);
+    };
+
+    const hasLocalScroll = event => {
+      for (const el of event.composedPath()) {
+        if (el === scroller || el === document.body) break;
+        if (!(el instanceof Element)) continue;
+        if (el.matches("input, select, textarea") || el.isContentEditable) return true;
+        if (el.scrollHeight > el.clientHeight && /^(auto|scroll|overlay)$/.test(getComputedStyle(el).overflowY)) return true;
+      }
+      return false;
+    };
+
+    addEventListener("wheel", event => {
+      // Read deltaMode first so line and page deltas stay in their original units.
+      const mode = event.deltaMode;
+      if (reduce.matches || event.defaultPrevented || !event.cancelable ||
+          event.ctrlKey || event.metaKey || event.altKey || event.shiftKey ||
+          !event.deltaY || Math.abs(event.deltaX) >= Math.abs(event.deltaY) || hasLocalScroll(event)) {
+        stop();
+        return;
+      }
+
+      const delta = event.deltaY * (mode === 1 ? 24 : mode === 2 ? innerHeight : 1);
+      const current = scrollY;
+      if (frame !== null && Math.abs(current - lastScrollY) > 1) stop();
+      // Reverse from the current position so an earlier wheel burst cannot fight the new direction.
+      const origin = frame !== null && delta * (target - current) > 0 ? target : current;
+      const destination = clamp(origin + delta, 0, maxScroll());
+      if (frame === null && destination === current) return;
+
+      event.preventDefault();
+      target = destination;
+      if (frame !== null) return;
+      scrollTo({ top: current, behavior: "instant" });
+      position = lastScrollY = scrollY;
+      lastFrameTime = performance.now();
+      frame = requestAnimationFrame(draw);
+    }, { passive: false });
+
+    for (const type of ["pointerdown", "keydown", "hashchange", "popstate"]) {
+      addEventListener(type, stop, { passive: true });
+    }
+    document.addEventListener("visibilitychange", stop);
+    if (reduce.addEventListener) reduce.addEventListener("change", stop);
+  };
+  enableSmoothWheel();
+
   const nav = document.getElementById("nav");
   const onScroll = () => nav && nav.classList.toggle("solid", scrollY > 30);
   addEventListener("scroll", onScroll, { passive: true });
