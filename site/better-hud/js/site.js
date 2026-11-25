@@ -1134,13 +1134,24 @@
     batch.forEach(({ el }, k) => {
       el.style.setProperty("--d", r2(k * f));
       el.classList.add("in");
-      rio.unobserve(el);
     });
   }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+  // Replay: a reveal rearms only once it has left the screen completely (threshold 0, no margin), so it plays again
+  // when it comes back from either direction, and hovering near the reveal line never makes it flicker.
+  const xio = new IntersectionObserver(entries => entries.forEach(e => {
+    if (!e.isIntersecting && !reduce.matches && !e.target.contains(document.activeElement)) e.target.classList.remove("in");
+  }), { threshold: 0 });
+  // Keyboard: whatever gets focus is shown at once, even before its reveal line.
+  document.addEventListener("focusin", e => {
+    const el = e.target.closest && e.target.closest(".rv, .rvg");
+    if (el && !el.classList.contains("in")) { el.style.setProperty("--d", 0); el.classList.add("in"); }
+  });
   // At the very end of the page nothing can scroll past the line 8% above the bottom: show whatever is left.
   addEventListener("scroll", () => {
     if (innerHeight + scrollY < document.documentElement.scrollHeight - 4) return;
-    document.querySelectorAll(".rv:not(.in), .rvg:not(.in)").forEach(el => { el.classList.add("in"); rio.unobserve(el); });
+    document.querySelectorAll(".rv:not(.in), .rvg:not(.in)").forEach(el => {
+      if (el.getBoundingClientRect().bottom > 0) el.classList.add("in");
+    });
   }, { passive: true });
   BH.page = true; // the head script keeps html.motion only once this is set
   if (reduce.addEventListener) reduce.addEventListener("change", () => root.classList.toggle("motion", !reduce.matches));
@@ -1197,7 +1208,7 @@
   // The hero comes in once its fonts are in (at most 1.5 s), and the reveals start with it.
   const ready = () => {
     root.classList.add("ready");
-    document.querySelectorAll(".rv, .rvg").forEach(el => rio.observe(el));
+    document.querySelectorAll(".rv, .rvg").forEach(el => { rio.observe(el); xio.observe(el); });
   };
   const fontLoad = document.fonts && document.fonts.load
     ? Promise.all([document.fonts.load('400 100px "Luckiest Guy"', "BETTER HUD"), document.fonts.ready]) : Promise.resolve();
