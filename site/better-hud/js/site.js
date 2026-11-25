@@ -1076,34 +1076,49 @@
   if (reduce.addEventListener) reduce.addEventListener("change", onReduce);
 
   /* ───────── Page: nav, active section, reveal on scroll, logo entrance ───────── */
-  // Smooth the page's vertical wheel input. Touch, keyboard and anchor navigation stay native.
+  // Smooth vertical wheel input using the real viewport. Touch, keyboard and anchors keep native navigation.
   const enableSmoothWheel = () => {
     const scroller = document.scrollingElement;
     if (!scroller) return;
     let frame = null;
-    let target = 0;
     let position = 0;
-    let lastScrollY = 0;
+    let target = 0;
+    let velocity = 0;
+    let rate = 0;
+    let lastScrollY = null;
     let lastFrameTime = 0;
 
-    const maxScroll = () => scroller.scrollHeight - scroller.clientHeight;
+    const maxScroll = () => Math.max(0, scroller.scrollHeight - scroller.clientHeight);
     const stop = () => {
       if (frame !== null) cancelAnimationFrame(frame);
       frame = null;
     };
 
     const draw = time => {
-      if (reduce.matches || Math.abs(scrollY - lastScrollY) > 1) {
+      const current = scrollY;
+      if (reduce.matches || (lastScrollY !== null && Math.abs(current - lastScrollY) > 1)) {
         stop();
         return;
       }
 
-      target = clamp(target, 0, maxScroll());
-      const distance = target - position;
-      const settled = Math.abs(distance) <= .5;
+      const limit = maxScroll();
+      if (lastScrollY === null) {
+        // Wheel input can take over while a native anchor jump is still moving.
+        const start = clamp(current, 0, limit);
+        target += start - position;
+        position = start;
+      }
+      target = clamp(target, 0, limit);
+
       const elapsed = clamp(time - lastFrameTime, 0, 50);
-      // Time-based easing keeps the same feel at different refresh rates.
-      position = settled ? target : position + distance * (1 - Math.exp(-elapsed / 65));
+      const offset = position - target;
+      // A critically damped spring starts gently and preserves velocity across frames.
+      const slope = velocity + rate * offset;
+      const decay = Math.exp(-rate * elapsed);
+      const remaining = (offset + slope * elapsed) * decay;
+      velocity = (velocity - rate * slope * elapsed) * decay;
+      const settled = offset * remaining <= 0 || (Math.abs(remaining) <= .5 && Math.abs(velocity) < .02);
+      position = settled ? target : target + remaining;
       scrollTo({ top: position, behavior: "instant" });
       lastScrollY = scrollY;
       lastFrameTime = time;
@@ -1115,13 +1130,13 @@
         if (el === scroller || el === document.body) break;
         if (!(el instanceof Element)) continue;
         if (el.matches("input, select, textarea") || el.isContentEditable) return true;
-        if (el.scrollHeight > el.clientHeight && /^(auto|scroll|overlay)$/.test(getComputedStyle(el).overflowY)) return true;
+        if (/^(auto|scroll|overlay)$/.test(getComputedStyle(el).overflowY) && el.scrollHeight > el.clientHeight) return true;
       }
       return false;
     };
 
     addEventListener("wheel", event => {
-      // Read deltaMode first so line and page deltas stay in their original units.
+      // Read deltaMode before the deltas to preserve line and page units.
       const mode = event.deltaMode;
       if (reduce.matches || event.defaultPrevented || !event.cancelable ||
           event.ctrlKey || event.metaKey || event.altKey || event.shiftKey ||
@@ -1132,19 +1147,25 @@
 
       const delta = event.deltaY * (mode === 1 ? 24 : mode === 2 ? innerHeight : 1);
       const current = scrollY;
-      if (frame !== null && Math.abs(current - lastScrollY) > 1) stop();
-      // Reverse from the current position so an earlier wheel burst cannot fight the new direction.
-      const origin = frame !== null && delta * (target - current) > 0 ? target : current;
-      const destination = clamp(origin + delta, 0, maxScroll());
-      if (frame === null && destination === current) return;
+      if (frame !== null && lastScrollY !== null && Math.abs(current - lastScrollY) > 1) stop();
+      if (frame === null) {
+        const limit = maxScroll();
+        position = target = clamp(current, 0, limit);
+        if (clamp(target + delta, 0, limit) === position) return;
+        velocity = 0;
+        // Small pixel deltas get a quicker response so fine gestures feel direct.
+        rate = mode === 0 && Math.abs(delta) < 24 ? .046 : .025;
+        lastScrollY = null;
+        lastFrameTime = performance.now();
+      } else if (delta * (target - position) < 0) {
+        // Discard the old direction when the user turns the wheel back.
+        target = position;
+        velocity = 0;
+      }
 
       event.preventDefault();
-      target = destination;
-      if (frame !== null) return;
-      scrollTo({ top: current, behavior: "instant" });
-      position = lastScrollY = scrollY;
-      lastFrameTime = performance.now();
-      frame = requestAnimationFrame(draw);
+      target += delta;
+      if (frame === null) frame = requestAnimationFrame(draw);
     }, { passive: false });
 
     for (const type of ["pointerdown", "keydown", "hashchange", "popstate"]) {
@@ -1257,55 +1278,6 @@
   }, { passive: true });
   BH.page = true; // the head script keeps html.motion only once this is set
   if (reduce.addEventListener) reduce.addEventListener("change", () => root.classList.toggle("motion", !reduce.matches));
-
-  /* ───────── "New in 6.7": one whole tag at a time ───────── */
-  // Without the script the strip scrolls (CSS). Here it slides one tag to the left, so the next tag starts just past
-  // the label, then rests. After the last tag it shows the first one again (from the second copy) and jumps home
-  // unseen. It waits while the mouse is over the tags, off screen, in a hidden tab, with reduced motion, or paused.
-  try {
-    const ticker = document.querySelector(".ticker");
-    const track = ticker && ticker.querySelector(".ticker-track");
-    const win = ticker && ticker.querySelector(".ticker-win");
-    if (track && win && track.children.length > 1) {
-      const tags = [...track.querySelectorAll(".tk")];
-      const n = track.children[0].children.length;
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "tk-btn";
-      ticker.append(btn);
-      ticker.classList.add("step");
-      let k = 0, timer = 0, over = false, seen = false, paused = false;
-      const place = slide => {
-        track.style.transition = slide ? "transform .65s cubic-bezier(.65, 0, .35, 1)" : "none";
-        track.style.transform = `translateX(${-tags[k].offsetLeft}px)`;
-      };
-      const plan = () => {
-        clearTimeout(timer);
-        timer = seen && !over && !paused && !document.hidden && !reduce.matches ? setTimeout(next, 2700) : 0;
-      };
-      const next = () => {
-        if (k >= n) { k -= n; place(false); void track.offsetWidth; }
-        k++;
-        place(true);
-        plan();
-      };
-      const label = () => {
-        btn.innerHTML = ico(paused ? "play" : "pause");
-        btn.setAttribute("aria-label", `${paused ? "Play" : "Pause"} the new features`);
-      };
-      btn.addEventListener("click", () => { paused = !paused; label(); plan(); });
-      win.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") { over = true; plan(); } });
-      win.addEventListener("pointerleave", () => { over = false; plan(); });
-      new IntersectionObserver(([e]) => { seen = e.isIntersecting; plan(); }).observe(ticker);
-      document.addEventListener("visibilitychange", plan);
-      if (reduce.addEventListener) reduce.addEventListener("change", () => { k = 0; place(false); plan(); });
-      // Tag widths change when the fonts arrive and at the breakpoints: keep the resting tag in place.
-      if ("ResizeObserver" in window) new ResizeObserver(() => place(false)).observe(track);
-      else addEventListener("resize", () => place(false));
-      label();
-      place(false);
-    }
-  } catch (e) { console.error(e); }
 
   // The hero comes in once its fonts are in (at most 1.5 s), and the reveals start with it.
   const ready = () => {
