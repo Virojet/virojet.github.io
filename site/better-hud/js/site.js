@@ -1125,7 +1125,7 @@
   // Reveal: what comes on screen together comes in together, top to bottom and left to right, one beat apart (--d);
   // a big batch is squeezed so its last item still starts within about 0.6 s.
   const rio = new IntersectionObserver(entries => {
-    const batch = entries.filter(e => e.isIntersecting).map(e => {
+    const batch = entries.filter(e => e.isIntersecting && !e.target.classList.contains("revisit")).map(e => {
       const r = e.target.getBoundingClientRect();
       return { el: e.target, row: Math.round(r.top / 12), left: r.left };
     });
@@ -1136,11 +1136,19 @@
       el.classList.add("in");
     });
   }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-  // Replay: a reveal rearms only once it has left the screen completely (threshold 0, no margin), so it plays again
-  // when it comes back from either direction, and hovering near the reveal line never makes it flicker.
-  const xio = new IntersectionObserver(entries => entries.forEach(e => {
-    if (!e.isIntersecting && !reduce.matches && !e.target.contains(document.activeElement)) e.target.classList.remove("in");
-  }), { threshold: 0 });
+  // Once a reveal leaves the viewport, replay it as soon as it returns, without the first-pass stagger.
+  const xio = new IntersectionObserver(entries => {
+    if (reduce.matches) return;
+    for (const { target, isIntersecting } of entries) {
+      const classes = target.classList;
+      if (isIntersecting) {
+        if (classes.contains("revisit")) classes.add("in");
+      } else if (classes.contains("in") && !target.contains(document.activeElement)) {
+        classes.add("revisit");
+        classes.remove("in");
+      }
+    }
+  }, { threshold: 0 });
   // Keyboard: whatever gets focus is shown at once, even before its reveal line.
   document.addEventListener("focusin", e => {
     const el = e.target.closest && e.target.closest(".rv, .rvg");

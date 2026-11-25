@@ -883,6 +883,13 @@ button { font: inherit; color: inherit; }
 .motion .ticker.in .ticker-win { animation: rv-fade .9s ease .2s backwards; }
 .motion .ticker.in .tk-btn { animation: rv-pop .5s var(--ease-pop) .45s backwards; }
 
+/* Returning content comes in together, without shifting the scroll reveal targets. */
+@keyframes rv-return { from { opacity: .8; } }
+.motion :is(.rv, .rvg).revisit.in { animation: rv-return 140ms ease-out; }
+.motion .rvg.revisit.in :is(.eyebrow, .wd, p, li, .ticker-lbl, .ticker-win, .tk-btn),
+.motion .rv-tile.revisit.in .fi,
+.motion .rv-card.revisit.in::before { animation: none; }
+
 /* The hero, on load (once the logo's font is in): title word by word, text, buttons, facts, then the MODS window */
 .motion.ready .hero-title .wd { animation: rv-word .8s var(--ease-out) backwards; animation-delay: calc(.3s + var(--w, 0) * 60ms); }
 .motion.ready .lede { animation: rv-rise .9s var(--ease-out) .65s backwards; }
