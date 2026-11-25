@@ -1136,7 +1136,13 @@
       el.classList.add("in");
     });
   }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-  // Once a reveal leaves the viewport, replay it as soon as it returns, without the first-pass stagger.
+  const rearmReveal = target => {
+    if (reduce.matches || target.contains(document.activeElement)) return;
+    target.classList.add("revisit");
+    target.classList.remove("in");
+  };
+
+  // Re-entry uses the whole viewport. Wait out any entrance that temporarily moves its target offscreen.
   const xio = new IntersectionObserver(entries => {
     if (reduce.matches) return;
     for (const { target, isIntersecting } of entries) {
@@ -1144,8 +1150,17 @@
       if (isIntersecting) {
         if (classes.contains("revisit")) classes.add("in");
       } else if (classes.contains("in") && !target.contains(document.activeElement)) {
-        classes.add("revisit");
-        classes.remove("in");
+        const entrance = target.getAnimations().find(
+          animation => animation.animationName?.startsWith("rv-") && animation.playState === "running"
+        );
+        if (!entrance) {
+          rearmReveal(target);
+          continue;
+        }
+        entrance.finished.then(() => {
+          const { top, bottom } = target.getBoundingClientRect();
+          if (bottom <= 0 || top >= innerHeight) rearmReveal(target);
+        }, () => {});
       }
     }
   }, { threshold: 0 });
