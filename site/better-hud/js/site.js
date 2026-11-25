@@ -479,18 +479,18 @@
       };
 
       await c.wait(700);
-      c.cap("HUD", "Hide the parts of the HUD you don't need, like the kill feed.");
+      c.cap("HUD", "Hide the kill feed and other HUD elements.");
       await c.wait(500);
       await flip("Hide Kill Feed");
       await c.wait(900);
 
-      c.cap("Chat", "Turn on Chat Timestamps: pause, and every message shows when it arrived.");
+      c.cap("Chat", "See when chat messages arrived.");
       await c.click(c.$('.chip[data-p="chat"]'), { then: () => show("chat") });
       await c.wait(500);
       await flip("Chat Timestamps");
       await c.wait(900);
 
-      c.cap("FPS & Ping", "Smart Auto Detail is already on. Render Scale trades a little sharpness for more FPS.");
+      c.cap("FPS & Ping", "Adjust resolution for smoother play.");
       await c.click(c.$('.chip[data-p="fps"]'), { then: () => show("fps") });
       await c.wait(400);
       await c.move(cardEl("Smart Auto Detail").querySelector(".tg"));
@@ -499,7 +499,7 @@
       await c.drag(rs.querySelector(".sl"), 1.5, { from: 1, min: 0.25, max: 4, num: rs.querySelector(".num"), fmt: v => (Math.round(v * 20) / 20).toFixed(2), dur: 1000 });
       await c.wait(800);
 
-      c.cap("Search", "Can't find a setting? Type what it does, and every match shows up.");
+      c.cap("Search", "Find any setting by name.");
       const sb = c.$(".sb-search");
       await c.click(sb, { then: () => sb.classList.add("focus") });
       await c.type(sb, "kill", { speed: 160, each: filter });
@@ -1118,8 +1118,8 @@
   };
   try {
     document.querySelectorAll(".hero-title, .scene-copy h2, h2.rvg").forEach(splitWords);
-    // Steps, tags, buttons and facts come in one after another (--i).
-    document.querySelectorAll(".steps, .tags, .ctas, .facts").forEach(list => [...list.children].forEach((el, i) => el.style.setProperty("--i", i)));
+    // Steps and buttons come in one after another (--i).
+    document.querySelectorAll(".steps, .ctas").forEach(list => [...list.children].forEach((el, i) => el.style.setProperty("--i", i)));
   } catch (e) { console.error(e); }
 
   // Reveal: what comes on screen together comes in together, top to bottom and left to right, one beat apart (--d);
