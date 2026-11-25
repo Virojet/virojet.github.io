@@ -1,9 +1,10 @@
 # BetterHUD by Virojet
 
-A responsive GitHub Pages website for Virojet's public mods. Each project has an overview, a dedicated Tampermonkey install guide, and the verified upstream userscript link.
+The animated Better HUD showcase is the [homepage](https://virojet.github.io/). The [mod library archive](https://virojet.github.io/archive/) keeps the original green design, mod overviews, and Tampermonkey install guides. The previous showcase, mod, and guide URLs redirect to their new locations.
 
 ## Edit the website
 
+- `site/better-hud/`: showcase homepage, styles, scripts, and assets.
 - `site/catalog.json`: project names, versions, descriptions, features, source and install links.
 - `site/build.py`: accessible HTML templates and static routes.
 - `site/base.css`: responsive visual design.

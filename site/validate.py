@@ -44,7 +44,7 @@ for file in sorted(root.rglob('*.html')):
     body=''.join(page.text)
     if 'Violentmonkey' in body and not -1<body.find('Tampermonkey')<body.find('Violentmonkey'):errors.append(f'{name}: Tampermonkey must be the primary manager')
 for m in catalog:
-    overview=root/f'mods/{m["slug"]}/index.html';install=root/f'mods/{m["slug"]}/install/index.html'
+    overview=root/f'archive/mods/{m["slug"]}/index.html';install=root/f'archive/mods/{m["slug"]}/install/index.html'
     if overview not in pages or install not in pages:errors.append(f'{m["slug"]}: missing overview/install route');continue
     page=pages[install]
     direct=[a for a in page.anchors if a['href']==m['install']]
@@ -53,10 +53,36 @@ for m in catalog:
     text=''.join(page.text)
     if 'Tampermonkey' not in text or m['version'] not in text:errors.append(f'{m["slug"]}: manager/version missing')
     if m['category']=='Experimental' and 'does not auto-update' not in text:errors.append(f'{m["slug"]}: experimental notice missing')
-for css in root.glob('*.css'):
+for css in root.rglob('*.css'):
     for ref in re.findall(r'url\([\'\"]?([^\)\'\"]+)',css.read_text(encoding='utf-8-sig')):
         if not ref.startswith(('http','data:')) and not (css.parent/ref).is_file():errors.append(f'{css.name}: missing CSS image: {ref}')
-if len(pages)!=2*len(catalog)+3+sum(1 for m in catalog if m.get('showcase')):errors.append(f'Unexpected HTML page count: {len(pages)}')
+archive = root/'archive'
+homepage = pages.get(root/'index.html')
+if not homepage or 'fan-made mod for Shell Shockers' not in ''.join(homepage.text):
+    errors.append('Homepage is missing the BetterHUD showcase')
+elif not any(a['href'] == 'archive/' for a in homepage.anchors):
+    errors.append('Homepage is missing a link to the mod library archive')
+if not (archive/'index.html').is_file():
+    errors.append('Mod library archive homepage is missing')
+
+showcase = next(mod['showcase'] for mod in catalog if mod['slug'] == 'better-hud')
+legacy = {showcase: root, 'mods': archive/'mods', 'guide': archive/'guide'}
+for mod in catalog:
+    path = 'mods/'+mod['slug']
+    legacy[path] = archive/path
+    legacy[path+'/install'] = archive/path/'install'
+for path, destination in legacy.items():
+    file = root/path/'index.html'
+    redirect = pages.get(file)
+    if not redirect or not any((file.parent/a['href']).resolve() == destination for a in redirect.anchors):
+        errors.append(f'{path}: missing redirect to {destination.relative_to(root)}')
+
+expected_archive_pages = 2*len(catalog)+3+sum(
+    1 for mod in catalog if mod.get('showcase') and mod['showcase'] != showcase
+)
+expected_pages = expected_archive_pages + 1 + len(legacy)
+if len(pages) != expected_pages:
+    errors.append(f'Unexpected HTML page count: {len(pages)} (expected {expected_pages})')
 if errors:
     raise SystemExit('\n'.join(errors))
 print(json.dumps({'result':'passed','pages':len(pages),'mods':len(catalog),'overview_routes':len(catalog),'install_routes':len(catalog),'local_link_and_asset_checks':local_refs,'primary_manager':'Tampermonkey'}))

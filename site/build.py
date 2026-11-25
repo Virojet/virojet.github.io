@@ -15,7 +15,9 @@ P=argparse.ArgumentParser()
 P.add_argument('--output',default='dist')
 P.add_argument('--origin',default='https://virojet.github.io')
 ARGS=P.parse_args()
-OUT=Path(ARGS.output).resolve()
+SITE_OUT=Path(ARGS.output).resolve()
+OUT=SITE_OUT/'archive'
+HOME_SHOWCASE=BY_ID['better-hud']['showcase']
 ORIGIN=ARGS.origin.rstrip('/')
 OUT.mkdir(parents=True,exist_ok=True)
 E=lambda s:escape(str(s),quote=True)
@@ -68,14 +70,14 @@ def layout(page,title,body,selected=None,section='overview',desc='Browse and ins
             items+=f'<a class="nav-item{active}" href="{link(mpath(m))}" data-search="{search}"{current}>{icon(m["mark"])}<span>{E(m["title"])}</span>{lab}</a>'
         nav+=f'<section class="nav-group"><h2>{E(group)}</h2>{items}</section>'
     active_all=' active' if section=='library' else ''
-    canonical=ORIGIN+'/'+page.removesuffix('index.html')
+    canonical=ORIGIN+'/archive/'+page.removesuffix('index.html')
     crumb=BY_ID[selected]['title'] if selected else ('All mods' if section=='library' else 'Installation guide')
     tabs=''
     if selected:
         m=BY_ID[selected]
         tabs=f'<nav class="tabs" aria-label="{E(m["title"])} pages"><a class="{"active" if section=="overview" else ""}" href="{link(mpath(m))}"'+(' aria-current="page"' if section=='overview' else '')+f'>Overview</a><a class="{"active" if section=="install" else ""}" href="{link(mpath(m,True))}"'+(' aria-current="page"' if section=='install' else '')+f'>Install</a>{external(m["repository"],"GitHub source","source-tab")}</nav>'
     html=f'''<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111613"><title>{E(title)} | BetterHUD by Virojet</title><meta name="description" content="{E(desc)}"><meta property="og:title" content="{E(title)} | BetterHUD"><meta property="og:description" content="{E(desc)}"><meta property="og:type" content="website"><meta property="og:url" content="{E(canonical)}"><meta property="og:image" content="{E(ORIGIN)}/assets/background.webp"><link rel="canonical" href="{E(canonical)}"><link rel="icon" href="{link('assets/favicon.svg')}" type="image/svg+xml"><link rel="stylesheet" href="{link(CSS_FILE)}"><script src="{link(JS_FILE)}" defer></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111613"><title>{E(title)} | BetterHUD by Virojet</title><meta name="description" content="{E(desc)}"><meta property="og:title" content="{E(title)} | BetterHUD"><meta property="og:description" content="{E(desc)}"><meta property="og:type" content="website"><meta property="og:url" content="{E(canonical)}"><meta property="og:image" content="{E(ORIGIN)}/archive/assets/background.webp"><link rel="canonical" href="{E(canonical)}"><link rel="icon" href="{link('assets/favicon.svg')}" type="image/svg+xml"><link rel="stylesheet" href="{link(CSS_FILE)}"><script src="{link(JS_FILE)}" defer></script></head>
 <body><a href="#main" class="skip">Skip to content</a>{DEFS}
 <aside class="sidebar" id="sidebar" aria-label="Mod navigation"><a class="brand" href="{link('index.html')}">{icon('crosshair','brand-mark')}<span>BetterHUD<small>MODS BY VIROJET</small></span></a><div class="search-wrap">{icon('search')}<label class="sr-only" for="nav-search">Search mod navigation</label><input type="search" id="nav-search" placeholder="Find a mod…" autocomplete="off"></div><nav class="nav-scroll" aria-label="Mods"><a class="nav-all{active_all}" href="{link('mods/index.html')}">{icon('grid')}All mods<span>{len(MODS)}</span></a>{nav}<p class="nav-empty" id="nav-empty" role="status" hidden>No matching mods.</p></nav><div class="sidebar-footer"><div class="author-mini"><img src="{link('assets/avatar.webp')}" alt="Virojet avatar" width="31" height="31"><div><strong>Made by Virojet</strong><span>Shell Shockers creator</span></div></div><div class="author-links"><a href="https://www.youtube.com/@subtovirojet" target="_blank" rel="noopener noreferrer">YouTube ↗</a><a href="https://discord.com/invite/yWnDAYKA9n" target="_blank" rel="noopener noreferrer">Discord ↗</a></div></div></aside>
 <button type="button" class="nav-veil" aria-label="Close navigation" tabindex="-1"></button>
@@ -87,8 +89,10 @@ def note(m):
     return f'<aside class="note{" experimental" if experimental else ""}">{icon("info")}<div><strong>{"Experimental build" if experimental else "Good to know"}</strong><p>{E(m["note"])}</p></div></aside>'
 
 def showcase(m,link):
-    # optional animated showcase site copied as-is from site/<showcase>/ (see the copy step below)
-    return f'<a class="button secondary" href="{link(m["showcase"]+"/index.html")}">See it in action{icon("arrow","arrow")}</a>' if m.get('showcase') else ''
+    if not m.get('showcase'):
+        return ''
+    target = '../index.html' if m['showcase'] == HOME_SHOWCASE else m['showcase']+'/index.html'
+    return f'<a class="button secondary" href="{link(target)}">See it in action{icon("arrow","arrow")}</a>'
 
 def overview(m,page):
     link=lambda p:rel(p,page)
@@ -134,15 +138,53 @@ JS_FILE='app-'+hashlib.sha256(script.encode()).hexdigest()[:12]+'.js'
 for asset in (SOURCE/'assets').iterdir():
     if asset.is_file():shutil.copyfile(asset,OUT/'assets'/asset.name)
 for mod in MODS:
-    if mod.get('showcase'):
-        shutil.rmtree(OUT/mod['showcase'],ignore_errors=True);shutil.copytree(SOURCE/mod['showcase'],OUT/mod['showcase'])
+    if mod.get('showcase') and mod['showcase'] != HOME_SHOWCASE:
+        shutil.copytree(SOURCE/mod['showcase'], OUT/mod['showcase'], dirs_exist_ok=True)
 for mod in MODS:
     overview(mod,mpath(mod))
     install(mod,mpath(mod,True))
 overview(BY_ID['better-hud'],'index.html')
 library();guide()
-(OUT/'.nojekyll').write_text('',encoding='utf-8')
-pages=sorted(p for p in OUT.rglob('index.html'))
-(OUT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>'+escape(ORIGIN+'/'+p.relative_to(OUT).as_posix().removesuffix('index.html'))+'</loc></url>' for p in pages)+'</urlset>',encoding='utf-8')
-(OUT/'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: '+ORIGIN+'/sitemap.xml\n',encoding='utf-8')
-print(json.dumps({'output':str(OUT),'pages':len(pages),'mods':len(MODS),'primary_manager':'Tampermonkey','origin':ORIGIN}))
+def redirect_page(old_page, target_page):
+    output = SITE_OUT/old_page
+    output.parent.mkdir(parents=True, exist_ok=True)
+    relative_url = os.path.relpath((SITE_OUT/target_page).parent, output.parent).replace(os.sep, '/') + '/'
+    canonical = ORIGIN + '/' + target_page.removesuffix('index.html')
+    html = f'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BetterHUD page moved</title><link rel="canonical" href="{E(canonical)}">
+<noscript><meta http-equiv="refresh" content="0;url={E(relative_url)}"></noscript></head>
+<body><h1>This page has moved</h1><p><a href="{E(relative_url)}" id="destination">Continue to BetterHUD</a></p>
+<script>
+const destination = new URL(document.getElementById('destination').href)
+destination.search = location.search
+destination.hash = location.hash
+location.replace(destination)
+</script></body></html>
+'''
+    output.write_text(html, encoding='utf-8')
+
+shutil.copytree(SOURCE/HOME_SHOWCASE, SITE_OUT, dirs_exist_ok=True)
+home = SITE_OUT/'index.html'
+html = home.read_text(encoding='utf-8')
+home_url = E(ORIGIN + '/')
+metadata = f'<link rel="canonical" href="{home_url}">\n<meta property="og:url" content="{home_url}">'
+home.write_text(html.replace('</head>', metadata + '\n</head>', 1), encoding='utf-8')
+
+archive_pages = sorted(p.relative_to(OUT).as_posix() for p in OUT.rglob('index.html'))
+legacy_pages = ['mods/index.html', 'guide/index.html']
+for mod in MODS:
+    legacy_pages.extend([mpath(mod), mpath(mod, True)])
+for page in legacy_pages:
+    redirect_page(page, 'archive/' + page)
+redirect_page(HOME_SHOWCASE+'/index.html', 'index.html')
+
+(SITE_OUT/'.nojekyll').write_text('', encoding='utf-8')
+public_pages = ['index.html', *('archive/' + page for page in archive_pages)]
+sitemap = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+for page in public_pages:
+    url = ORIGIN + '/' + page.removesuffix('index.html')
+    sitemap += '<url><loc>' + escape(url) + '</loc></url>'
+(SITE_OUT/'sitemap.xml').write_text(sitemap + '</urlset>', encoding='utf-8')
+(SITE_OUT/'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: ' + ORIGIN + '/sitemap.xml\n', encoding='utf-8')
+print(json.dumps({'output': str(SITE_OUT), 'pages': len(public_pages), 'redirects': len(legacy_pages)+1, 'mods': len(MODS), 'origin': ORIGIN}))
