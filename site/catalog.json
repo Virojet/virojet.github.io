@@ -5,7 +5,7 @@
     "file": "Shell-Shockers-Better-Hud.user.js",
     "group": "Core",
     "name": "Shell Shockers Better UI",
-    "version": "6.5.3",
+    "version": "6.7.1",
     "description": "FPS, Ping, HUD controls, match stats history, crosshair, performance tweaks, and styled Server Selector integrated into the native UI.",
     "downloadURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Better-Hud-Mod/main/Shell-Shockers-Better-Hud.user.js",
     "updateURL": "https://raw.githubusercontent.com/Virojet/Shell-Shockers-Better-Hud-Mod/main/Shell-Shockers-Better-Hud.meta.js",
@@ -36,7 +36,8 @@
     "settings": "Open Shell Shockers Settings, then choose MODS or CROSSHAIR.",
     "note": "Match History is included. You do not need the standalone Stats Mod alongside BetterHUD.",
     "mark": "crosshair",
-    "verified_on": "2026-11-12"
+    "showcase": "better-hud",
+    "verified_on": "2026-11-25"
   },
   {
     "slug": "mod-menu",

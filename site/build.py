@@ -86,6 +86,10 @@ def note(m):
     experimental=m['category']=='Experimental'
     return f'<aside class="note{" experimental" if experimental else ""}">{icon("info")}<div><strong>{"Experimental build" if experimental else "Good to know"}</strong><p>{E(m["note"])}</p></div></aside>'
 
+def showcase(m,link):
+    # optional animated showcase site copied as-is from site/<showcase>/ (see the copy step below)
+    return f'<a class="button secondary" href="{link(m["showcase"]+"/index.html")}">See it in action{icon("arrow","arrow")}</a>' if m.get('showcase') else ''
+
 def overview(m,page):
     link=lambda p:rel(p,page)
     eyebrow='Experimental build' if m['category']=='Experimental' else (m['category']+' / '+('YouTube' if m['slug']=='hide-youtube-feed' else 'Shell Shockers'))
@@ -93,7 +97,7 @@ def overview(m,page):
     related=[x for x in MODS if x['slug']!=m['slug'] and x['category']!='Experimental'][:2]
     if m['slug']=='better-hud':related=[BY_ID['mod-menu'],BY_ID['valorant-kill-sounds']]
     cards=''.join(f'<a class="related" href="{link(mpath(r))}">{icon(r["mark"])}<div><strong>{E(r["title"])}</strong><span>{E(r["category"])}</span></div>{icon("arrow","arrow")}</a>' for r in related)
-    body=f'''<section class="hero" aria-labelledby="mod-title"><div class="hero-art" aria-hidden="true"></div><div class="hero-grid" aria-hidden="true">{icon(m['mark'])}</div><div class="hero-copy"><div class="eyebrow"><span>{E(eyebrow)}</span><span class="version">v{E(m['version'])}</span></div><h1 id="mod-title">{E(m['title'])}</h1><p>{E(m['description'])}</p><div class="hero-actions"><a class="button" href="{link(mpath(m,True))}">{icon('download')}Install {E(m['title'])}{icon('arrow','arrow')}</a>{external(m['repository'],'View source')}</div></div></section><p class="hero-caption">FREE &amp; OPEN SOURCE · DESKTOP USERSCRIPT</p><div class="section-title"><h2>{E(m['summary'])}</h2></div><div class="feature-grid">{feats}</div>{note(m)}<section class="quickstart"><div><h2>Ready for your next match?</h2><p>Get Tampermonkey, install the script, and reload {'YouTube' if m['slug']=='hide-youtube-feed' else 'Shell Shockers'}.</p></div><a class="button secondary" href="{link(mpath(m,True))}">Installation guide{icon('arrow','arrow')}</a></section><div class="section-title"><h2>More from Virojet</h2><a href="{link('mods/index.html')}">View all mods{icon('arrow','arrow')}</a></div><div class="more-row">{cards}</div>'''
+    body=f'''<section class="hero" aria-labelledby="mod-title"><div class="hero-art" aria-hidden="true"></div><div class="hero-grid" aria-hidden="true">{icon(m['mark'])}</div><div class="hero-copy"><div class="eyebrow"><span>{E(eyebrow)}</span><span class="version">v{E(m['version'])}</span></div><h1 id="mod-title">{E(m['title'])}</h1><p>{E(m['description'])}</p><div class="hero-actions"><a class="button" href="{link(mpath(m,True))}">{icon('download')}Install {E(m['title'])}{icon('arrow','arrow')}</a>{showcase(m,link)}{external(m['repository'],'View source')}</div></div></section><p class="hero-caption">FREE &amp; OPEN SOURCE · DESKTOP USERSCRIPT</p><div class="section-title"><h2>{E(m['summary'])}</h2></div><div class="feature-grid">{feats}</div>{note(m)}<section class="quickstart"><div><h2>Ready for your next match?</h2><p>Get Tampermonkey, install the script, and reload {'YouTube' if m['slug']=='hide-youtube-feed' else 'Shell Shockers'}.</p></div><a class="button secondary" href="{link(mpath(m,True))}">Installation guide{icon('arrow','arrow')}</a></section><div class="section-title"><h2>More from Virojet</h2><a href="{link('mods/index.html')}">View all mods{icon('arrow','arrow')}</a></div><div class="more-row">{cards}</div>'''
     if m['slug']=='hide-youtube-feed':body=body.replace('Ready for your next match?','A quieter home page, in three steps.')
     layout(page,m['title'],body,m['slug'],'overview',m['description'])
 
@@ -129,6 +133,9 @@ JS_FILE='app-'+hashlib.sha256(script.encode()).hexdigest()[:12]+'.js'
 (OUT/'assets').mkdir(exist_ok=True)
 for asset in (SOURCE/'assets').iterdir():
     if asset.is_file():shutil.copyfile(asset,OUT/'assets'/asset.name)
+for mod in MODS:
+    if mod.get('showcase'):
+        shutil.rmtree(OUT/mod['showcase'],ignore_errors=True);shutil.copytree(SOURCE/mod['showcase'],OUT/mod['showcase'])
 for mod in MODS:
     overview(mod,mpath(mod))
     install(mod,mpath(mod,True))

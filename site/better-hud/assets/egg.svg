@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-222 -180 444 376">
+  <defs>
+    <radialGradient id="yolk" cx="42%" cy="38%" r="65%"><stop offset="0" stop-color="#ffb85c"/><stop offset=".7" stop-color="#f89a3e"/><stop offset="1" stop-color="#ec8429"/></radialGradient>
+  </defs>
+  <path transform="translate(0 14)" fill="#5e3319" d="M0 -158.4C33.6 -157.9 67.7 -142 99.6 -129.4C131.5 -116.8 173.4 -104.4 191.2 -82.8C209 -61.2 210.2 -25.9 206.4 0C202.6 25.9 185 49.8 168.4 72.9C151.8 96 134.9 123 106.8 138.7C78.7 154.5 34.4 169 0 167.4C-34.4 165.8 -69.5 144.2 -99.6 129.4C-129.7 114.5 -164.6 99.9 -180.8 78.3C-197 56.7 -195.4 26.7 -196.8 0C-198.2 -26.7 -204.9 -59.8 -189.1 -81.9C-173.3 -104 -133.5 -119.8 -102 -132.5C-70.5 -145.3 -33.6 -158.9 0 -158.4Z"/>
+  <path fill="#fff" stroke="#5e3319" stroke-width="14" stroke-linejoin="round" d="M0 -158.4C33.6 -157.9 67.7 -142 99.6 -129.4C131.5 -116.8 173.4 -104.4 191.2 -82.8C209 -61.2 210.2 -25.9 206.4 0C202.6 25.9 185 49.8 168.4 72.9C151.8 96 134.9 123 106.8 138.7C78.7 154.5 34.4 169 0 167.4C-34.4 165.8 -69.5 144.2 -99.6 129.4C-129.7 114.5 -164.6 99.9 -180.8 78.3C-197 56.7 -195.4 26.7 -196.8 0C-198.2 -26.7 -204.9 -59.8 -189.1 -81.9C-173.3 -104 -133.5 -119.8 -102 -132.5C-70.5 -145.3 -33.6 -158.9 0 -158.4Z"/>
+  <path d="M0 -118V-84M0 84V118M-118 0H-84M84 0H118" fill="none" stroke="#5e3319" stroke-width="14" stroke-linecap="round"/>
+  <circle r="66" fill="url(#yolk)" stroke="#5e3319" stroke-width="12"/>
+  <circle r="54" fill="none" stroke="#d9741c" stroke-width="6" opacity=".55"/>
+  <path d="M-34 -18 A38 38 0 0 1 -6 -42" fill="none" stroke="#fff4d6" stroke-width="13" stroke-linecap="round"/>
+  <circle cx="-38" cy="-2" r="6" fill="#fff4d6"/>
+</svg>

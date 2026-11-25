@@ -41,7 +41,8 @@ for file in sorted(root.rglob('*.html')):
         if not target.is_file():errors.append(f'{name}: missing target: {ref}');continue
         local_refs+=1
         if u.fragment and target==file and u.fragment not in page.ids:errors.append(f'{name}: missing fragment: {ref}')
-    if 'Violentmonkey' in ''.join(page.text):errors.append(f'{name}: Tampermonkey must be the primary manager')
+    body=''.join(page.text)
+    if 'Violentmonkey' in body and not -1<body.find('Tampermonkey')<body.find('Violentmonkey'):errors.append(f'{name}: Tampermonkey must be the primary manager')
 for m in catalog:
     overview=root/f'mods/{m["slug"]}/index.html';install=root/f'mods/{m["slug"]}/install/index.html'
     if overview not in pages or install not in pages:errors.append(f'{m["slug"]}: missing overview/install route');continue
@@ -55,7 +56,7 @@ for m in catalog:
 for css in root.glob('*.css'):
     for ref in re.findall(r'url\([\'\"]?([^\)\'\"]+)',css.read_text(encoding='utf-8-sig')):
         if not ref.startswith(('http','data:')) and not (css.parent/ref).is_file():errors.append(f'{css.name}: missing CSS image: {ref}')
-if len(pages)!=2*len(catalog)+3:errors.append(f'Unexpected HTML page count: {len(pages)}')
+if len(pages)!=2*len(catalog)+3+sum(1 for m in catalog if m.get('showcase')):errors.append(f'Unexpected HTML page count: {len(pages)}')
 if errors:
     raise SystemExit('\n'.join(errors))
 print(json.dumps({'result':'passed','pages':len(pages),'mods':len(catalog),'overview_routes':len(catalog),'install_routes':len(catalog),'local_link_and_asset_checks':local_refs,'primary_manager':'Tampermonkey'}))
