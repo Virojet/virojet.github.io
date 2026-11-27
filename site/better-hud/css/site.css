@@ -188,6 +188,41 @@ button { font: inherit; color: inherit; }
 .tour-cap .swap { animation: cap-in .4s ease both; }
 @keyframes cap-in { from { opacity: 0; transform: translateY(4px); } }
 
+/* ───────── New in 6.8–6.9 ticker ───────── */
+/* Every tag shows at full strength: tags come in at the screen edge and slide under the label (no fading edges).
+   The label and the tags share one height (--tk-h). With the script (.step), the strip moves one whole tag at a
+   time and rests, so a tag is never left cut in half beside the label; without it, it scrolls smoothly. */
+.ticker {
+  --tk-h: 38px; display: flex; align-items: center; padding: 16px 0 16px var(--gutter); background: var(--ink); color: #fff; overflow: hidden;
+  box-shadow: inset 0 3px 0 rgba(0, 0, 0, .12), inset 0 -3px 0 rgba(0, 0, 0, .12);
+}
+.ticker-lbl {
+  position: relative; z-index: 1; flex: none; display: inline-flex; align-items: center; height: var(--tk-h); padding: 0 14px;
+  border-radius: 10px; background: var(--pm-orange); border: 2px solid var(--orange-edge);
+  font: 400 14px/1 var(--f-display); text-transform: uppercase; letter-spacing: .4px; text-shadow: 0 1px 0 rgba(0, 0, 0, .25);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .45), inset 0 -3px 0 rgba(0, 0, 0, .14), 8px 0 12px -6px rgba(3, 32, 43, .75);
+}
+/* A resting tag starts 12px past the label; tags are 14px apart, so the one before it is wholly under the label. */
+.ticker-win { flex: 1; min-width: 0; overflow: hidden; margin-left: -12px; padding-left: 24px; }
+.ticker-track { position: relative; display: flex; gap: 14px; width: max-content; animation: tick 60s linear infinite; }
+.ticker:hover .ticker-track, .ticker:focus-within .ticker-track { animation-play-state: paused; }
+.ticker.step .ticker-track { animation: none; }
+.tk-g { display: flex; gap: 14px; }
+.tk { display: inline-flex; align-items: center; height: var(--tk-h); padding: 0 16px; border-radius: 999px; background: rgba(255, 255, 255, .1); border: 1px solid rgba(255, 255, 255, .24); font-weight: 800; font-size: 14.5px; white-space: nowrap; }
+@keyframes tick { to { transform: translateX(calc(-50% - 7px)); } } /* half a copy plus half the gap between copies */
+/* Pause / Play (WCAG 2.2.2): site.js adds it with the stepping. The same game button as under each demo; tags come
+   out from under it on the right, as they go under the label on the left. */
+.ticker.step { padding-right: var(--gutter); }
+.tk-btn {
+  position: relative; z-index: 1; flex: none; display: inline-grid; place-items: center; width: var(--tk-h); height: var(--tk-h); margin-left: -12px; padding: 0;
+  border: 3px solid var(--ink-deep); border-radius: 10px; background: var(--blue); color: #fff; cursor: pointer;
+  box-shadow: #0b5f79 -1.5px -2.5px 1.5px 0 inset, #2aa6cc 0 2.5px 3px 0 inset, -8px 0 12px -6px rgba(3, 32, 43, .75);
+  transition: filter .12s;
+}
+.tk-btn:hover { filter: brightness(1.1); }
+.tk-btn:active { translate: 0 2px; }
+.tk-btn svg { width: 15px; height: 15px; filter: drop-shadow(rgba(0, 0, 0, .3) 1px 1px 0); }
+
 /* ───────── Scenes: the copy on the sky, beside a game window ───────── */
 .scene { position: relative; padding: clamp(64px, 7.5vw, 120px) var(--gutter); overflow-x: clip; view-timeline: --scene block; } /* clip: the cloud may pass the screen edge */
 /* A soft cloud behind each game window, on its side (never under the text); it drifts a little slower than the page. */
@@ -510,8 +545,6 @@ button { font: inherit; color: inherit; }
 .cm .ts { margin-right: 6px; font-size: 12px; font-weight: 800; color: rgba(255, 255, 255, .6); }
 .cm .ts[hidden] { display: none; }
 @keyframes cm-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-.mn-me { padding: 0 .18em; border-radius: .3em; background: #0c576f; color: rgb(255, 241, 0); }
-.mn-out { padding: 0 .18em; border-radius: .3em; background: #046306; color: #87ddbb; }
 .chat-in { display: flex; align-items: center; height: 38px; padding: 0 10px; background: rgba(34, 34, 34, .92); border-top: 1px solid rgba(255, 255, 255, .08); border-radius: 0 0 4px 4px; color: #fff; font-size: 15.5px; font-weight: 700; white-space: pre; }
 .chat-in .hint { color: rgba(255, 255, 255, .45); font-weight: 700; }
 .chat-in .caret { background: #fff; height: 18px; margin-left: 1px; }
@@ -596,6 +629,9 @@ button { font: inherit; color: inherit; }
 .seg { display: flex; margin-left: auto; padding: 2px; border-radius: 9px; background: rgba(12, 87, 111, .12); }
 .seg span { padding: 3px 10px; border-radius: 7px; font-size: 11.5px; font-weight: 900; color: var(--sub); }
 .seg span.on { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(8, 62, 84, .2); }
+.prog-ctrls { display: flex; align-items: center; gap: 6px; margin-left: 10px; }
+.pcard .team-hdr .prog-ctrls .seg { margin-left: 0; }
+.seg-range span { padding: 3px 7px; }
 .pcard .team-hdr .seg { margin-left: 10px; }
 .chart { display: block; width: 100%; height: auto; }
 .chart text { font: 800 10.5px var(--f-body); fill: rgba(12, 87, 111, .7); }
@@ -800,8 +836,7 @@ button { font: inherit; color: inherit; }
 .foot-links a:hover { filter: brightness(1.12); }
 .foot-links a:active { transform: translateY(2px); }
 .foot-links svg { width: 17px; height: 17px; filter: drop-shadow(rgba(0, 0, 0, .3) 1px 1px 0); }
-.foot-by { color: #ffb23f; font-weight: 900; text-decoration: none; }
-.foot-by:is(:hover, :focus-visible) { text-decoration: underline; text-underline-offset: .16em; }
+.foot-by { color: #ffb23f; font-weight: 900; }
 .foot-note { margin: 18px 2px 0; font-size: 14px; font-weight: 700; color: rgba(255, 255, 255, .72); }
 
 /* ───────── Reveal on scroll: each kind of thing has its own entrance ───────── */
@@ -824,29 +859,31 @@ button { font: inherit; color: inherit; }
 .wd { display: inline-block; } /* a title word (site.js splits titles) */
 
 /* Waiting to come in. A title is hidden whole, so it never shows before the script has split it into words. */
-.motion .rv:not(.in), .motion .rvg:not(.in) :is(.eyebrow, h2, p, li), .motion h2.rvg:not(.in) { opacity: 0; }
+.motion .rv:not(.in), .motion .rvg:not(.in) :is(.eyebrow, h2, p, li, .ticker-lbl, .ticker-win, .tk-btn), .motion h2.rvg:not(.in) { opacity: 0; }
 .motion:not(.ready) :is(.hero-title, .lede, .ctas, .facts, .tour-cap), .motion:not(.ready) .tour .demo { opacity: 0; }
 
-/* Keep the same reveal sequence on return, with shorter durations and delays. */
-:is(.rv, .rvg).revisit { --reveal-speed: .3; }
-
 /* One thing: rises */
-.motion .rv.in { animation: rv-rise calc(.9s * var(--reveal-speed, 1)) var(--ease-out) backwards; animation-delay: calc((var(--d, 0) * 90ms) * var(--reveal-speed, 1)); }
+.motion .rv.in { animation: rv-rise .9s var(--ease-out) backwards; animation-delay: calc(var(--d, 0) * 90ms); }
 /* A demo: the game window swings up into place */
-.motion .rv-win.in { animation: rv-win calc(1.1s * var(--reveal-speed, 1)) var(--ease-out) backwards; animation-delay: calc((.12s + var(--d, 0) * 90ms) * var(--reveal-speed, 1)); }
+.motion .rv-win.in { animation: rv-win 1.1s var(--ease-out) backwards; animation-delay: calc(.12s + var(--d, 0) * 90ms); }
 /* Feature tiles rise in turn, then their icon pops */
-.motion .rv-tile.in { animation: rv-card calc(.85s * var(--reveal-speed, 1)) var(--ease-out) backwards; animation-delay: calc((var(--d, 0) * 90ms) * var(--reveal-speed, 1)); }
-.motion .rv-tile.in .fi { animation: rv-icon calc(.7s * var(--reveal-speed, 1)) var(--ease-pop) backwards; animation-delay: calc((.25s + var(--d, 0) * 90ms) * var(--reveal-speed, 1)); }
+.motion .rv-tile.in { animation: rv-card .85s var(--ease-out) backwards; animation-delay: calc(var(--d, 0) * 90ms); }
+.motion .rv-tile.in .fi { animation: rv-icon .7s var(--ease-pop) backwards; animation-delay: calc(.25s + var(--d, 0) * 90ms); }
 /* Install cards pop up, then their number springs on */
-.motion .rv-card.in { animation: rv-card calc(.9s * var(--reveal-speed, 1)) var(--ease-pop) backwards; animation-delay: calc((var(--d, 0) * 120ms) * var(--reveal-speed, 1)); }
-.motion .rv-card.in::before { animation: rv-badge calc(.6s * var(--reveal-speed, 1)) var(--ease-pop) backwards; animation-delay: calc((.4s + var(--d, 0) * 120ms) * var(--reveal-speed, 1)); }
+.motion .rv-card.in { animation: rv-card .9s var(--ease-pop) backwards; animation-delay: calc(var(--d, 0) * 120ms); }
+.motion .rv-card.in::before { animation: rv-badge .6s var(--ease-pop) backwards; animation-delay: calc(.4s + var(--d, 0) * 120ms); }
 
 /* A scene's copy: the label slides in, the title comes word by word, then the text, the steps one by one, the tags */
-.motion .rvg.in .eyebrow { animation: rv-label calc(.7s * var(--reveal-speed, 1)) var(--ease-pop) backwards; }
-.motion .rvg.in .wd { animation: rv-word calc(.75s * var(--reveal-speed, 1)) var(--ease-out) backwards; animation-delay: calc((.08s + var(--w, 0) * 55ms) * var(--reveal-speed, 1)); }
-.motion .rvg.in > p { animation: rv-rise calc(.8s * var(--reveal-speed, 1)) var(--ease-out) calc(.3s * var(--reveal-speed, 1)) backwards; }
-.motion .rvg.in .steps li { animation: rv-left calc(.7s * var(--reveal-speed, 1)) var(--ease-out) backwards; animation-delay: calc((.42s + var(--i, 0) * 90ms) * var(--reveal-speed, 1)); }
-.motion .rvg.in .tags li { animation: rv-pop calc(.5s * var(--reveal-speed, 1)) var(--ease-pop) backwards; animation-delay: calc((.7s + var(--i, 0) * 45ms) * var(--reveal-speed, 1)); }
+.motion .rvg.in .eyebrow { animation: rv-label .7s var(--ease-pop) backwards; }
+.motion .rvg.in .wd { animation: rv-word .75s var(--ease-out) backwards; animation-delay: calc(.08s + var(--w, 0) * 55ms); }
+.motion .rvg.in > p { animation: rv-rise .8s var(--ease-out) .3s backwards; }
+.motion .rvg.in .steps li { animation: rv-left .7s var(--ease-out) backwards; animation-delay: calc(.42s + var(--i, 0) * 90ms); }
+.motion .rvg.in .tags li { animation: rv-pop .5s var(--ease-pop) backwards; animation-delay: calc(.7s + var(--i, 0) * 45ms); }
+/* The ticker: the label slides in, the tags fade up, the Pause button pops */
+.motion .ticker.in .ticker-lbl { animation: rv-label .7s var(--ease-pop) backwards; }
+.motion .ticker.in .ticker-win { animation: rv-fade .9s ease .2s backwards; }
+.motion .ticker.in .tk-btn { animation: rv-pop .5s var(--ease-pop) .45s backwards; }
+
 /* The hero, on load (once the logo's font is in): title word by word, text, buttons, facts, then the MODS window */
 .motion.ready .hero-title .wd { animation: rv-word .8s var(--ease-out) backwards; animation-delay: calc(.3s + var(--w, 0) * 60ms); }
 .motion.ready .lede { animation: rv-rise .9s var(--ease-out) .65s backwards; }
@@ -864,7 +901,7 @@ button { font: inherit; color: inherit; }
 /* On paper, everything shows. */
 @media print {
   .motion * { animation: none !important; }
-  .motion .rv, .motion .rvg :is(.eyebrow, h2, p, li), .motion h2.rvg { opacity: 1 !important; }
+  .motion .rv, .motion .rvg :is(.eyebrow, h2, p, li, .ticker-lbl, .ticker-win), .motion h2.rvg { opacity: 1 !important; }
 }
 
 /* ───────── Responsive ───────── */
@@ -904,6 +941,7 @@ button { font: inherit; color: inherit; }
   .steps li { grid-template-columns: 32px 1fr; gap: 12px; padding: 11px 13px; font-size: 15px; }
   .steps li::before { width: 32px; height: 32px; font-size: 14px; }
   .steps li.on { transform: none; }
+  .ticker-lbl { font-size: 12px; padding: 0 10px; }
   .foot-links { margin-left: 0; }
 }
 
@@ -915,6 +953,18 @@ button { font: inherit; color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; transition-delay: 0s !important; }
+  /* Still: every tag on rows that wrap, inside the page margins. */
+  .ticker { padding-right: var(--gutter); }
+  .ticker-track { display: block; animation: none; width: auto; transform: none !important; }
+  .ticker-track [aria-hidden="true"] { display: none; }
+  .tk-g { flex-wrap: wrap; }
+  .ticker-win { margin-left: 0; padding-left: 14px; }
+  .tk-btn { display: none; }
   .clouds .back { animation: none; }
   .cursor { display: none; }
+}
+/* On a phone, still: the label goes above the tags, so they get the full width and take half the rows. */
+@media (prefers-reduced-motion: reduce) and (max-width: 560px) {
+  .ticker { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .ticker-win { align-self: stretch; padding-left: 0; }
 }

@@ -6,7 +6,7 @@
 (() => {
   "use strict";
 
-  const BH = (window.BH = { demos: [], version: "6.7.1" });
+  const BH = (window.BH = { demos: [], version: "6.9.0" });
   const root = document.documentElement;
   const reduce = matchMedia("(prefers-reduced-motion: reduce)");
   const ABORT = Symbol("abort");
@@ -385,8 +385,10 @@
       ["Chat Timestamps", "When you pause, each chat message shows the time it arrived. The chat you see while playing doesn't change.", "chat time times timestamp timestamps clock when sent arrived hour minute"],
       ["Join From Chat", "Underlines a game code said in chat (like cask-zips-vent). Click it, confirm, and you leave the match and join that game.", "chat code join game private link click friend invite", "on"],
       ["Crosshair Codes in Chat", "Underlines a crosshair code said in chat (one that starts with X- or SSB-, or a Valorant code). Hover it to see the crosshair; click it to save it as a profile.", "chat crosshair code detect preview hover import save profile share valorant", "on"],
+      ["Clickable Links in Chat", "Underlines web links said in chat (https://, http://, www., or common sites like discord.gg/...). Click a link, confirm the address, and it opens in a new tab.", "chat link links url urls web click open external browser discord youtube http https", "on"],
       ["Chat Countdown", "When the game makes you wait before your next chat message, the chat box shows how many seconds are left.", ""],
-      ["Chat Mentions", "Type @ in chat to pick a player's name from a list that narrows as you type (Up and Down to choose, Tab or Enter to put it in). When another player says your name in chat, your name in their message is highlighted in blue and you hear a short ping.", "", "on"],
+      ["Chat While Dead", "Keeps the in-game chat box working while you wait to respawn, so you can finish or send a message between lives.", "chat dead death respawn killcam type message between lives"],
+      ["Chat Mentions", "Type @ in chat to pick a player's name from a list that narrows as you type (Up and Down to choose, Tab or Enter to put it in). When another player says your name in chat, with or without @ and in any case, you hear a short ping. Click the gear to adjust the ping volume, @-only mode, and tab title badge.", "chat mention mentions @ at name tag ping notify notification sound alert autocomplete suggest player gear volume title", "on"],
       ["Copy Chat", "", "chat copy export save text log history messages clipboard", "btn:Copy"],
     ]],
     ["fps", "FPS & Ping", "Raise your frame rate, and set up the FPS and ping readout.", [
@@ -479,18 +481,18 @@
       };
 
       await c.wait(700);
-      c.cap("HUD", "Hide the kill feed and other HUD elements.");
+      c.cap("HUD", "Hide the parts of the HUD you don't need, like the kill feed.");
       await c.wait(500);
       await flip("Hide Kill Feed");
       await c.wait(900);
 
-      c.cap("Chat", "See when chat messages arrived.");
+      c.cap("Chat", "Turn on Chat Timestamps: pause, and every message shows when it arrived.");
       await c.click(c.$('.chip[data-p="chat"]'), { then: () => show("chat") });
       await c.wait(500);
       await flip("Chat Timestamps");
       await c.wait(900);
 
-      c.cap("FPS & Ping", "Adjust resolution for smoother play.");
+      c.cap("FPS & Ping", "Smart Auto Detail is already on. Render Scale trades a little sharpness for more FPS.");
       await c.click(c.$('.chip[data-p="fps"]'), { then: () => show("fps") });
       await c.wait(400);
       await c.move(cardEl("Smart Auto Detail").querySelector(".tg"));
@@ -499,7 +501,7 @@
       await c.drag(rs.querySelector(".sl"), 1.5, { from: 1, min: 0.25, max: 4, num: rs.querySelector(".num"), fmt: v => (Math.round(v * 20) / 20).toFixed(2), dur: 1000 });
       await c.wait(800);
 
-      c.cap("Search", "Find any setting by name.");
+      c.cap("Search", "Can't find a setting? Type what it does, and every match shows up.");
       const sb = c.$(".sb-search");
       await c.click(sb, { then: () => sb.classList.add("focus") });
       await c.type(sb, "kill", { speed: 160, each: filter });
@@ -664,7 +666,7 @@
 
       c.step(0);
       await c.wait(1100);
-      say(cm("MasterChick79", true, '<span class="mn-me">YolkLord2</span> how are you hitting those shots', "19:41"));
+      say(cm("MasterChick79", true, "YolkLord2 how are you hitting those shots", "19:41"));
       if (!c.instant) {
         chat.insertAdjacentHTML("beforeend", `<div class="pingfx">${ico("speaker")}Ping!</div>`);
         const fx = chat.querySelector(".pingfx");
@@ -690,7 +692,7 @@
       await c.type(q, "try my crosshair", { speed: 70, jitter: 50 });
       await c.wait(400);
       await c.key("Enter", KEY);
-      say(cm("YolkLord2", false, '<span class="mn-out">@MasterChick79</span> try my crosshair', "19:41"));
+      say(cm("YolkLord2", false, "@MasterChick79 try my crosshair", "19:41"));
       q.textContent = "";
       inp.classList.remove("focus");
       inp.hidden = true;
@@ -739,25 +741,28 @@
     `<div class="hr${cls}" data-s="${esc(`${m[0]} ${m[1]} ${m[6]}`.toLowerCase())}"><div><div class="hr-name">${esc(m[0])}</div><div class="hr-sub">${esc(m[1])}</div></div>` +
     `<div class="hr-when"><b>${m[2]}</b><small>${m[3]}</small></div><div class="hr-kd"><b>${m[4]} / ${m[5]}</b><small>KDR ${(m[4] / Math.max(1, m[5])).toFixed(2)}</small></div></div>`;
 
-  const progressHTML = () => {
+  const progressHTML = (range = "50") => {
     const R = rng(57);
-    const M = [];
-    for (let i = 0; i < 49; i++) { // KDR climbing from about 1.4 to 2.5, with match-to-match noise
-      const kdr = Math.max(0.35, 1.4 + 1.1 * (i / 48) + (R() - 0.5) * 1.5);
+    const allM = [];
+    for (let i = 0; i < 56; i++) { // KDR climbing from about 1.4 to 2.5, with match-to-match noise
+      const kdr = Math.max(0.35, 1.4 + 1.1 * (i / 55) + (R() - 0.5) * 1.5);
       const d = 3 + Math.floor(R() * 8);
-      M.push({ k: Math.round(kdr * d), d });
+      allM.push({ k: Math.round(kdr * d), d });
     }
-    M.push({ k: 14, d: 6 }); // the match just played
+    allM.push({ k: 14, d: 6 }); // the match just played (57th)
+    const lim = range === "all" ? 0 : +range || 50;
+    const M = lim ? allM.slice(-lim) : allM;
     const W = 660, H = 170, L = 40, RM = 14, T = 12, B = 26, pw = W - L - RM, ph = H - T - B;
     const kd = m => m.k / Math.max(1, m.d);
     const top = Math.max(4, Math.ceil(Math.max(...M.map(kd))));
-    const X = i => r2(L + (i / (M.length - 1)) * pw);
+    const X = i => r2(L + (i / Math.max(1, M.length - 1)) * pw);
     const Y = v => r2(T + ph - (Math.min(v, top) / top) * ph);
+    const win = M.length <= 50 ? 5 : Math.max(10, Math.round(M.length / 50) * 5);
     let s = "";
     [0, top / 2, top].forEach(v => { s += `<line class="grid-l" x1="${L}" x2="${W - RM}" y1="${Y(v)}" y2="${Y(v)}"/><text x="${L - 9}" y="${Y(v) + 3.5}" text-anchor="end">${v}</text>`; });
     s += `<line class="even" x1="${L}" x2="${W - RM}" y1="${Y(1)}" y2="${Y(1)}"/><text x="${W - RM}" y="${Y(1) - 5}" text-anchor="end">Even</text>`;
     const avg = M.map((_, i) => {
-      const w = M.slice(Math.max(0, i - 4), i + 1);
+      const w = M.slice(Math.max(0, i - (win - 1)), i + 1);
       return w.reduce((a, m) => a + m.k, 0) / Math.max(1, w.reduce((a, m) => a + m.d, 0));
     });
     s += M.slice(0, -1).map((m, i) => `<circle class="dot" cx="${X(i)}" cy="${Y(kd(m))}" r="4" style="--i:${i}"/>`).join("");
@@ -765,15 +770,20 @@
     s += `<circle class="dot hi" cx="${X(M.length - 1)}" cy="${Y(kd(M[M.length - 1]))}" r="5.5" style="--i:${M.length - 1}"/>`;
     s += `<text x="${L}" y="${H - 6}">Older</text><text x="${W - RM}" y="${H - 6}" text-anchor="end">Latest</text>`;
     const sum = a => a.reduce((x, m) => [x[0] + m.k, x[1] + m.d], [0, 0]);
-    const [k1, d1] = sum(M.slice(-10));
-    const [k0, d0] = sum(M.slice(0, -10));
+    const [k1, d1] = sum(allM.slice(-10));
+    const prior = allM.length >= 20 ? allM.slice(-20, -10) : allM.slice(0, -10);
+    const [k0, d0] = sum(prior);
+    const rangePills = [["50", "50"], ["100", "100"], ["250", "250"], ["all", "All"]]
+      .map(([v, lbl]) => `<span${range === v ? ' class="on"' : ""} data-prog-range="${v}">${lbl}</span>`).join("");
+    const spanTxt = M.length < allM.length ? `last ${M.length} of ${allM.length} matches` : `${allM.length} matches`;
     const table = (title, col, rows) =>
       `<div class="pcard"><div class="team-hdr"><span class="team-name">${title}</span></div><table class="pt"><thead><tr><th>${col}</th><th>Matches</th><th>KDR</th></tr></thead>` +
       `<tbody>${rows.map(([n, g, k]) => `<tr><td>${n}</td><td>${g}</td><td>${k}</td></tr>`).join("")}</tbody></table></div>`;
-    return '<div class="prog" hidden><div class="pcard"><div class="team-hdr"><span class="team-name">KDR by match</span><span class="team-info">last 50 of 57 matches</span>' +
-      '<span class="seg"><span class="on">KDR</span><span>Kills</span></span></div>' +
+    return `<div class="prog" hidden><div class="pcard"><div class="team-hdr"><span class="team-name">KDR by match</span><span class="team-info">${spanTxt}</span>` +
+      `<span class="prog-ctrls"><span class="seg seg-range" role="group" aria-label="Range">${rangePills}</span>` +
+      '<span class="seg" role="group" aria-label="Show"><span class="on">KDR</span><span>Kills</span></span></span></div>' +
       `<svg class="chart" viewBox="0 0 ${W} ${H}" aria-hidden="true">${s}</svg>` +
-      `<div class="prog-foot"><span>Dots: each match with 2+ kills or 3+ deaths · line: average of the last 5</span><span class="trend">Last 10: KDR ${(k1 / d1).toFixed(2)} · before them: ${(k0 / d0).toFixed(2)}</span></div></div>` +
+      `<div class="prog-foot"><span>Dots: each match with 2+ kills or 3+ deaths · line: average of the last ${win}</span><span class="trend">Last 10: KDR ${(k1 / d1).toFixed(2)} · ${allM.length >= 20 ? "prior 10" : "before them"}: ${(k0 / d0).toFixed(2)}</span></div></div>` +
       '<div class="ptbls">' +
       table("By map", "Map", [["Castle", 21, "2.31"], ["Shipyard", 11, "1.84"], ["Moonbase", 9, "2.12"], ["Dirt", 9, "1.62"]]) +
       table("By mode", "Mode", [["Teams", 27, "2.24"], ["Free for All", 12, "1.71"], ["Capture the Spatula", 7, "2.05"], ["King of the Coop", 4, "1.38"]]) +
@@ -1076,106 +1086,6 @@
   if (reduce.addEventListener) reduce.addEventListener("change", onReduce);
 
   /* ───────── Page: nav, active section, reveal on scroll, logo entrance ───────── */
-  // Smooth vertical wheel input using the real viewport. Touch, keyboard and anchors keep native navigation.
-  const enableSmoothWheel = () => {
-    const scroller = document.scrollingElement;
-    if (!scroller) return;
-    let frame = null;
-    let position = 0;
-    let target = 0;
-    let velocity = 0;
-    let rate = 0;
-    let lastScrollY = null;
-    let lastFrameTime = 0;
-
-    const maxScroll = () => Math.max(0, scroller.scrollHeight - scroller.clientHeight);
-    const stop = () => {
-      if (frame !== null) cancelAnimationFrame(frame);
-      frame = null;
-    };
-
-    const draw = time => {
-      const current = scrollY;
-      if (reduce.matches || (lastScrollY !== null && Math.abs(current - lastScrollY) > 1)) {
-        stop();
-        return;
-      }
-
-      const limit = maxScroll();
-      if (lastScrollY === null) {
-        // Wheel input can take over while a native anchor jump is still moving.
-        const start = clamp(current, 0, limit);
-        target += start - position;
-        position = start;
-      }
-      target = clamp(target, 0, limit);
-
-      const elapsed = clamp(time - lastFrameTime, 0, 50);
-      const offset = position - target;
-      // A critically damped spring starts gently and preserves velocity across frames.
-      const slope = velocity + rate * offset;
-      const decay = Math.exp(-rate * elapsed);
-      const remaining = (offset + slope * elapsed) * decay;
-      velocity = (velocity - rate * slope * elapsed) * decay;
-      const settled = offset * remaining <= 0 || (Math.abs(remaining) <= .5 && Math.abs(velocity) < .02);
-      position = settled ? target : target + remaining;
-      scrollTo({ top: position, behavior: "instant" });
-      lastScrollY = scrollY;
-      lastFrameTime = time;
-      frame = settled ? null : requestAnimationFrame(draw);
-    };
-
-    const hasLocalScroll = event => {
-      for (const el of event.composedPath()) {
-        if (el === scroller || el === document.body) break;
-        if (!(el instanceof Element)) continue;
-        if (el.matches("input, select, textarea") || el.isContentEditable) return true;
-        if (/^(auto|scroll|overlay)$/.test(getComputedStyle(el).overflowY) && el.scrollHeight > el.clientHeight) return true;
-      }
-      return false;
-    };
-
-    addEventListener("wheel", event => {
-      // Read deltaMode before the deltas to preserve line and page units.
-      const mode = event.deltaMode;
-      if (reduce.matches || event.defaultPrevented || !event.cancelable ||
-          event.ctrlKey || event.metaKey || event.altKey || event.shiftKey ||
-          !event.deltaY || Math.abs(event.deltaX) >= Math.abs(event.deltaY) || hasLocalScroll(event)) {
-        stop();
-        return;
-      }
-
-      const delta = event.deltaY * (mode === 1 ? 24 : mode === 2 ? innerHeight : 1);
-      const current = scrollY;
-      if (frame !== null && lastScrollY !== null && Math.abs(current - lastScrollY) > 1) stop();
-      if (frame === null) {
-        const limit = maxScroll();
-        position = target = clamp(current, 0, limit);
-        if (clamp(target + delta, 0, limit) === position) return;
-        velocity = 0;
-        // Small pixel deltas get a quicker response so fine gestures feel direct.
-        rate = mode === 0 && Math.abs(delta) < 24 ? .046 : .025;
-        lastScrollY = null;
-        lastFrameTime = performance.now();
-      } else if (delta * (target - position) < 0) {
-        // Discard the old direction when the user turns the wheel back.
-        target = position;
-        velocity = 0;
-      }
-
-      event.preventDefault();
-      target += delta;
-      if (frame === null) frame = requestAnimationFrame(draw);
-    }, { passive: false });
-
-    for (const type of ["pointerdown", "keydown", "hashchange", "popstate"]) {
-      addEventListener(type, stop, { passive: true });
-    }
-    document.addEventListener("visibilitychange", stop);
-    if (reduce.addEventListener) reduce.addEventListener("change", stop);
-  };
-  enableSmoothWheel();
-
   const nav = document.getElementById("nav");
   const onScroll = () => nav && nav.classList.toggle("solid", scrollY > 30);
   addEventListener("scroll", onScroll, { passive: true });
@@ -1218,14 +1128,14 @@
   };
   try {
     document.querySelectorAll(".hero-title, .scene-copy h2, h2.rvg").forEach(splitWords);
-    // Steps and buttons come in one after another (--i).
-    document.querySelectorAll(".steps, .ctas").forEach(list => [...list.children].forEach((el, i) => el.style.setProperty("--i", i)));
+    // Steps, tags, buttons and facts come in one after another (--i).
+    document.querySelectorAll(".steps, .tags, .ctas, .facts").forEach(list => [...list.children].forEach((el, i) => el.style.setProperty("--i", i)));
   } catch (e) { console.error(e); }
 
   // Reveal: what comes on screen together comes in together, top to bottom and left to right, one beat apart (--d);
   // a big batch is squeezed so its last item still starts within about 0.6 s.
   const rio = new IntersectionObserver(entries => {
-    const batch = entries.filter(e => e.isIntersecting && !e.target.classList.contains("revisit")).map(e => {
+    const batch = entries.filter(e => e.isIntersecting).map(e => {
       const r = e.target.getBoundingClientRect();
       return { el: e.target, row: Math.round(r.top / 12), left: r.left };
     });
@@ -1236,34 +1146,11 @@
       el.classList.add("in");
     });
   }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-  const rearmReveal = target => {
-    if (reduce.matches || target.contains(document.activeElement)) return;
-    target.classList.add("revisit");
-    target.classList.remove("in");
-  };
-
-  // Re-entry uses the whole viewport. Wait out any entrance that temporarily moves its target offscreen.
-  const xio = new IntersectionObserver(entries => {
-    if (reduce.matches) return;
-    for (const { target, isIntersecting } of entries) {
-      const classes = target.classList;
-      if (isIntersecting) {
-        if (classes.contains("revisit")) classes.add("in");
-      } else if (classes.contains("in") && !target.contains(document.activeElement)) {
-        const entrance = target.getAnimations().find(
-          animation => animation.animationName?.startsWith("rv-") && animation.playState === "running"
-        );
-        if (!entrance) {
-          rearmReveal(target);
-          continue;
-        }
-        entrance.finished.then(() => {
-          const { top, bottom } = target.getBoundingClientRect();
-          if (bottom <= 0 || top >= innerHeight) rearmReveal(target);
-        }, () => {});
-      }
-    }
-  }, { threshold: 0 });
+  // Replay: a reveal rearms only once it has left the screen completely (threshold 0, no margin), so it plays again
+  // when it comes back from either direction, and hovering near the reveal line never makes it flicker.
+  const xio = new IntersectionObserver(entries => entries.forEach(e => {
+    if (!e.isIntersecting && !reduce.matches && !e.target.contains(document.activeElement)) e.target.classList.remove("in");
+  }), { threshold: 0 });
   // Keyboard: whatever gets focus is shown at once, even before its reveal line.
   document.addEventListener("focusin", e => {
     const el = e.target.closest && e.target.closest(".rv, .rvg");
@@ -1278,6 +1165,55 @@
   }, { passive: true });
   BH.page = true; // the head script keeps html.motion only once this is set
   if (reduce.addEventListener) reduce.addEventListener("change", () => root.classList.toggle("motion", !reduce.matches));
+
+  /* ───────── "New in 6.8–6.9": one whole tag at a time ───────── */
+  // Without the script the strip scrolls (CSS). Here it slides one tag to the left, so the next tag starts just past
+  // the label, then rests. After the last tag it shows the first one again (from the second copy) and jumps home
+  // unseen. It waits while the mouse is over the tags, off screen, in a hidden tab, with reduced motion, or paused.
+  try {
+    const ticker = document.querySelector(".ticker");
+    const track = ticker && ticker.querySelector(".ticker-track");
+    const win = ticker && ticker.querySelector(".ticker-win");
+    if (track && win && track.children.length > 1) {
+      const tags = [...track.querySelectorAll(".tk")];
+      const n = track.children[0].children.length;
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "tk-btn";
+      ticker.append(btn);
+      ticker.classList.add("step");
+      let k = 0, timer = 0, over = false, seen = false, paused = false;
+      const place = slide => {
+        track.style.transition = slide ? "transform .65s cubic-bezier(.65, 0, .35, 1)" : "none";
+        track.style.transform = `translateX(${-tags[k].offsetLeft}px)`;
+      };
+      const plan = () => {
+        clearTimeout(timer);
+        timer = seen && !over && !paused && !document.hidden && !reduce.matches ? setTimeout(next, 2700) : 0;
+      };
+      const next = () => {
+        if (k >= n) { k -= n; place(false); void track.offsetWidth; }
+        k++;
+        place(true);
+        plan();
+      };
+      const label = () => {
+        btn.innerHTML = ico(paused ? "play" : "pause");
+        btn.setAttribute("aria-label", `${paused ? "Play" : "Pause"} the new features`);
+      };
+      btn.addEventListener("click", () => { paused = !paused; label(); plan(); });
+      win.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") { over = true; plan(); } });
+      win.addEventListener("pointerleave", () => { over = false; plan(); });
+      new IntersectionObserver(([e]) => { seen = e.isIntersecting; plan(); }).observe(ticker);
+      document.addEventListener("visibilitychange", plan);
+      if (reduce.addEventListener) reduce.addEventListener("change", () => { k = 0; place(false); plan(); });
+      // Tag widths change when the fonts arrive and at the breakpoints: keep the resting tag in place.
+      if ("ResizeObserver" in window) new ResizeObserver(() => place(false)).observe(track);
+      else addEventListener("resize", () => place(false));
+      label();
+      place(false);
+    }
+  } catch (e) { console.error(e); }
 
   // The hero comes in once its fonts are in (at most 1.5 s), and the reveals start with it.
   const ready = () => {

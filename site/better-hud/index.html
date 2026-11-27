@@ -4,11 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Better HUD · Shell Shockers mod</title>
-<meta name="description" content="A fan-made Shell Shockers mod with custom crosshairs, match stats, and more settings.">
+<meta name="description" content="Better HUD is a free Shell Shockers mod. It adds MODS and CROSSHAIR tabs to the game's Settings: a cleaner HUD, your own crosshair, saved match stats, chat mentions, more FPS and a server picker.">
 <meta name="theme-color" content="#1192bc">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://virojet.github.io/">
 <meta property="og:title" content="Better HUD · Shell Shockers mod">
-<meta property="og:description" content="Custom crosshairs, match stats, and more settings for Shell Shockers.">
+<meta property="og:description" content="A cleaner HUD, your own crosshair, saved match stats, more FPS and the fastest server, right in the Shell Shockers settings.">
+<meta property="og:image" content="https://virojet.github.io/assets/better-hud-icon.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Better HUD · Shell Shockers mod">
+<meta name="twitter:description" content="A cleaner HUD, your own crosshair, saved match stats, more FPS and the fastest server, right in the Shell Shockers settings.">
+<meta name="twitter:image" content="https://virojet.github.io/assets/better-hud-icon.png">
 <link rel="icon" href="assets/egg.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/better-hud-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,7 +51,7 @@
     <svg class="brand-egg" aria-hidden="true" focusable="false"><use href="#egg"/></svg>
     <svg class="brand-word" viewBox="0 0 172 40" aria-hidden="true" focusable="false"><text x="86" y="33" font-size="28" fill="#5e3319" stroke="#5e3319" stroke-width="7" stroke-linejoin="round">BETTER HUD</text><text x="86" y="30" font-size="28" fill="#fff3e2" stroke="#5e3319" stroke-width="5.5" stroke-linejoin="round" paint-order="stroke">BETTER HUD</text></svg>
   </a>
-  <span class="ver">v6.7.1</span>
+  <span class="ver">v6.9.0</span>
   <nav class="nav-links" aria-label="Features">
     <a href="#crosshair">Crosshair</a>
     <a href="#chat">Chat</a>
@@ -85,11 +91,16 @@
     </h1>
     <div class="hero-copy">
       <p class="hero-title">The settings Shell Shockers was <em>missing</em>.</p>
-      <p class="lede">Better HUD is a fan-made mod for Shell Shockers. It adds <strong>MODS</strong> and <strong>CROSSHAIR</strong> tabs to the game's settings.</p>
+      <p class="lede">Better HUD is a fan-made mod for Shell Shockers. It adds two tabs to the game's Settings, MODS and CROSSHAIR: hide what you don't need, draw your own crosshair, keep the stats of every match, get more FPS on a slow computer and join the server with the lowest ping.</p>
       <div class="ctas">
         <a class="gbtn" href="#install"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Install free</a>
         <a class="gbtn blue" href="#tour"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>See it in action</a>
       </div>
+      <ul class="facts">
+        <li>Free &amp; open source (MIT)</li>
+        <li>Chrome · Edge · Firefox · Opera GX</li>
+        <li>Updates itself</li>
+      </ul>
     </div>
   </div>
   <div class="clouds" aria-hidden="true">
@@ -104,20 +115,33 @@
       <div class="stage" id="tour-stage" data-demo="tour" style="--w:860;--h:680" role="img" aria-label="Animated demo of the MODS tab. Hide Kill Feed and Chat Timestamps are turned on, Render Scale is set to 1.5, and a search for kill finds every matching setting."><div class="stage-inner"></div></div>
       <div class="stage-bar"><span class="live"><span>Animated demo</span></span><button class="replay" type="button">Pause</button></div>
     </div>
-    <p class="tour-cap" data-cap-for="tour-stage"><b>MODS tab</b><span class="t">Customize the game in Settings.</span></p>
+    <p class="tour-cap" data-cap-for="tour-stage"><b>MODS tab</b><span class="t">Everything is in the game's Settings. Nothing to set up outside the game.</span></p>
+  </div>
+</section>
+
+<section class="ticker rvg" aria-label="New in versions 6.8 and 6.9">
+  <span class="ticker-lbl">New in 6.8–6.9</span>
+  <div class="ticker-win">
+    <div class="ticker-track">
+      <div class="tk-g"><span class="tk">Clickable Links in Chat</span><span class="tk">Mentions in Tab Title</span><span class="tk">Mention Ping Volume</span><span class="tk">Discord-safe Copy as Text</span><span class="tk">Hide HUD Key</span><span class="tk">Spectate Camera Fix</span><span class="tk">Smoother long matches</span><span class="tk">Faster stats screenshots</span><span class="tk">Settings shade &amp; audio fixes</span><span class="tk">Case-sensitive Skip Duplicates</span></div>
+      <div class="tk-g" aria-hidden="true"><span class="tk">Clickable Links in Chat</span><span class="tk">Mentions in Tab Title</span><span class="tk">Mention Ping Volume</span><span class="tk">Discord-safe Copy as Text</span><span class="tk">Hide HUD Key</span><span class="tk">Spectate Camera Fix</span><span class="tk">Smoother long matches</span><span class="tk">Faster stats screenshots</span><span class="tk">Settings shade &amp; audio fixes</span><span class="tk">Case-sensitive Skip Duplicates</span></div>
+    </div>
   </div>
 </section>
 
 <section class="scene" id="crosshair">
   <div class="scene-in">
     <div class="scene-copy rvg">
-      <h2>Build your own crosshair</h2>
+      <p class="eyebrow"><b>01</b>Crosshair</p>
+      <h2>A crosshair you can see on every map.</h2>
+      <p>The game's crosshair gets lost against bright walls and busy fights. The <b>CROSSHAIR</b> tab lets you draw your own: arms, center dot, outline and color, saved as profiles you can switch between, even one for each gun.</p>
       <ol class="steps" data-for="xh-stage">
-        <li><span>Preview it on different backgrounds.</span></li>
-        <li><span>Adjust the size and shape.</span></li>
-        <li><span>Pick a color and outline.</span></li>
-        <li><span>Import a crosshair code.</span></li>
+        <li><span>Pick a background like your map's, so the preview looks like a real match.</span></li>
+        <li><span>Drag <b>Length</b> and <b>Width</b>. The preview changes while you drag.</span></li>
+        <li><span>Choose a color. <b>Outline</b> keeps it readable on any wall.</span></li>
+        <li><span>Got a code from a friend, or from Valorant? Import it and give the profile a name.</span></li>
       </ol>
+      <ul class="tags"><li>Center dot</li><li>Crosshair per weapon</li><li>Profiles &amp; gallery</li><li>Undo &amp; redo</li><li>Valorant codes</li></ul>
     </div>
     <div class="demo rv rv-win">
       <div class="stage" id="xh-stage" data-demo="crosshair" style="--w:760;--h:540" role="img" aria-label="Animated demo of the CROSSHAIR tab. A background is picked, length, width and color are changed, then a Valorant crosshair code is imported and saved as a profile."><div class="stage-inner"></div></div>
@@ -129,16 +153,19 @@
 <section class="scene flip" id="chat">
   <div class="scene-in">
     <div class="scene-copy rvg">
-      <h2>Never miss a mention</h2>
+      <p class="eyebrow"><b>02</b>Chat</p>
+      <h2>Never miss it when someone talks to you.</h2>
+      <p>In the middle of a fight you don't read chat. With <b>Chat Mentions</b>, you hear a short ping when someone says your name — and get a tab-title badge if you're in another tab. Answer by name with <kbd>@</kbd>, read the whole match back when you pause, and keep the crosshairs people share.</p>
       <ol class="steps" data-for="chat-stage">
-        <li><span>Hear a ping when someone says your name.</span></li>
-        <li><span>Type <kbd>@</kbd> to tag a player.</span></li>
-        <li><span>Read earlier messages with timestamps.</span></li>
-        <li><span>Preview and save crosshairs from chat.</span></li>
+        <li><span>Someone says your name: you hear a short ping so you don't miss it.</span></li>
+        <li><span>Type <kbd>@</kbd> and a letter or two, then <kbd>Tab</kbd> puts in the full name.</span></li>
+        <li><span>Pause: every message shows the time it arrived, and old ones are still there.</span></li>
+        <li><span>Hover a crosshair code to see it. Click it to save it as a profile.</span></li>
       </ol>
+      <ul class="tags"><li>Chat Mentions</li><li>Clickable Links in Chat</li><li>Chat While Dead</li><li>Infinite Chat History</li><li>Chat Timestamps</li><li>Copy Chat</li><li>Join From Chat</li><li>Chat Countdown</li></ul>
     </div>
     <div class="demo rv rv-win">
-      <div class="stage" id="chat-stage" data-demo="chat" style="--w:640;--h:460" role="img" aria-label="Animated demo of the in-game chat. Your name is highlighted when someone says it, typing @ completes a player's name, pausing shows the time of each message, and a shared crosshair code is saved as a profile."><div class="stage-inner"></div></div>
+      <div class="stage" id="chat-stage" data-demo="chat" style="--w:640;--h:460" role="img" aria-label="Animated demo of the in-game chat. You hear a ping when someone says your name, typing @ completes a player's name, pausing shows the time of each message, and a shared crosshair code is saved as a profile."><div class="stage-inner"></div></div>
       <div class="stage-bar"><span class="live"><span>Animated demo</span></span><button class="replay" type="button">Pause</button></div>
     </div>
   </div>
@@ -147,12 +174,15 @@
 <section class="scene" id="stats">
   <div class="scene-in">
     <div class="scene-copy rvg">
-      <h2>See past matches</h2>
+      <p class="eyebrow"><b>03</b>Match History</p>
+      <h2>Every match, saved for later.</h2>
+      <p>Had a great game last night and forgot the code? Every match you finish is saved in your browser with its map, mode, server and every player's kills and deaths. Search it, filter it by mode, map or date, and watch your KDR go up.</p>
       <ol class="steps" data-for="hist-stage">
-        <li><span>Save matches automatically.</span></li>
-        <li><span>Search by player, map or game code.</span></li>
-        <li><span>Track your kill/death ratio over time.</span></li>
+        <li><span>Finish a match: it's added to Match History by itself.</span></li>
+        <li><span>Search a player, a map or a game code to find old matches.</span></li>
+        <li><span>Open <b>Progress</b> to see your KDR match by match, and where you play best.</span></li>
       </ol>
+      <ul class="tags"><li>Search &amp; calendar</li><li>Progress</li><li>Keep &amp; rename</li><li>Saved Match Limit</li><li>Export</li></ul>
     </div>
     <div class="demo rv rv-win">
       <div class="stage" id="hist-stage" data-demo="history" style="--w:720;--h:560" role="img" aria-label="Animated demo of Match History. A finished match is added, a search for a player narrows the list to three matches, then Progress charts KDR for the last 50 matches."><div class="stage-inner"></div></div>
@@ -164,12 +194,15 @@
 <section class="scene flip" id="share">
   <div class="scene-in">
     <div class="scene-copy rvg">
-      <h2>Share your scoreboard</h2>
+      <p class="eyebrow"><b>04</b>Share</p>
+      <h2>Post the scoreboard in seconds.</h2>
+      <p>Won a scrim and want proof? Open the match, press <b>Copy as Text</b> and paste it in your group chat. The columns stay lined up, so it reads like a real scoreboard. Prefer a picture? <b>Copy Image</b> draws it in Better HUD's look or as a league result card.</p>
       <ol class="steps" data-for="share-stage">
-        <li><span>Open any saved match.</span></li>
-        <li><span>Copy the scoreboard as text.</span></li>
-        <li><span>Paste it into your chat.</span></li>
+        <li><span>Open the match: both teams, every player, K, D and KDR.</span></li>
+        <li><span>Press <b>Copy as Text</b>.</span></li>
+        <li><span>Paste it in any chat with <kbd>Ctrl</kbd> + <kbd>V</kbd>.</span></li>
       </ol>
+      <ul class="tags"><li>Copy as Text</li><li>Copy Image</li><li>Stats Style</li><li>Kill Bars</li><li>Show Guns</li></ul>
     </div>
     <div class="demo rv rv-win">
       <div class="stage" id="share-stage" data-demo="share" style="--w:760;--h:520" role="img" aria-label="Animated demo. A match's stats are copied as text and pasted into a group chat, where they show as a lined-up scoreboard."><div class="stage-inner"></div></div>
@@ -181,13 +214,16 @@
 <section class="scene" id="fps">
   <div class="scene-in">
     <div class="scene-copy rvg">
-      <h2>Make the game run smoother</h2>
+      <p class="eyebrow"><b>05</b>FPS &amp; Ping</p>
+      <h2>Smoother games on any computer.</h2>
+      <p>On a laptop, a big fight can drop you under 40 FPS right when it matters. <b>Smart Auto Detail</b> lowers the resolution a little, but only at a safe moment. <b>FPS Check</b> tells you what's slowing the game down, in plain words.</p>
       <ol class="steps" data-for="fps-stage">
-        <li><span>Better HUD watches your frame rate.</span></li>
-        <li><span>It waits for a break in the fight.</span></li>
-        <li><span>It lowers detail if that helps.</span></li>
-        <li><span>Run FPS Check to find slowdowns.</span></li>
+        <li><span>Smart Auto Detail is on from the start and watches your FPS while you play.</span></li>
+        <li><span>A fight drops you under 40 FPS. It waits, so nothing stutters mid-fight.</span></li>
+        <li><span>Once you're cracked, it lowers the resolution a step, and keeps it lower only if that helps.</span></li>
+        <li><span>Still slow? FPS Check finds common causes, like the browser using the weaker graphics card.</span></li>
       </ol>
+      <ul class="tags"><li>Smart Auto Detail</li><li>Render Scale</li><li>Uncap FPS</li><li>Disable All Particles</li><li>FPS Check</li></ul>
     </div>
     <div class="demo rv rv-win">
       <div class="stage" id="fps-stage" data-demo="fps" style="--w:720;--h:480" role="img" aria-label="Animated demo of Smart Auto Detail. FPS drops under 40 in a fight, the resolution is lowered to 85 percent after the player is cracked, FPS recovers, and FPS Check explains a slow setup."><div class="stage-inner"></div></div>
@@ -199,11 +235,14 @@
 <section class="scene flip" id="servers">
   <div class="scene-in">
     <div class="scene-copy rvg">
-      <h2>Find a faster server</h2>
+      <p class="eyebrow"><b>06</b>Server Picker</p>
+      <h2>Join the server with the lowest ping.</h2>
+      <p>Lag is often just the wrong region. <b>Server Picker</b> puts every region on the home screen with its live ping, right beside Game Mode. <b>Auto-pick Best Server</b> switches you when another region is clearly faster.</p>
       <ol class="steps" data-for="srv-stage">
-        <li><span>See live ping for each region.</span></li>
-        <li><span>Switch automatically when a region is faster.</span></li>
+        <li><span>Open Server on the home screen: every region with its ping, live.</span></li>
+        <li><span>Auto-pick moves you to the fastest region, if it beats yours by at least 15 ms or 20%.</span></li>
       </ol>
+      <ul class="tags"><li>Server Picker</li><li>Auto-pick Best Server</li><li>Live ping</li></ul>
     </div>
     <div class="demo rv rv-win">
       <div class="stage" id="srv-stage" data-demo="servers" style="--w:640;--h:420" role="img" aria-label="Animated demo of Server Picker on the home screen. The region list shows live pings, and Auto-pick switches from Germany to US East, the region with the lowest ping."><div class="stage-inner"></div></div>
@@ -214,25 +253,33 @@
 
 <section class="more" id="more">
   <div class="more-in">
-    <h2 class="sec-title center rvg">More ways to customize</h2>
+    <h2 class="sec-title center rvg">And a lot more.</h2>
+    <p class="sec-lede center rv">Every setting has a short tip in the game. A few more favorites:</p>
     <ul class="feat">
-      <li class="rv rv-tile"><span class="fi"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M7 16l5-12 5 12M9 12h6"/></svg></span><b>HUD Size</b><span>Resize menus and the scoreboard.</span></li>
-      <li class="rv rv-tile"><span class="fi"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg></span><b>Classic Looks &amp; Sounds</b><span>Bring back old gun models and sounds.</span></li>
-      <li class="rv rv-tile"><span class="fi"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></span><b>Auto Fullscreen</b><span>Go fullscreen when you join.</span></li>
-      <li class="rv rv-tile"><span class="fi"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 18a8.5 8.5 0 1 1 15 0"/><path d="M12 14.5l3.5-4.5"/><circle cx="12" cy="14.5" r="1.3"/></svg></span><b>FPS Limit</b><span>Set your own frame rate cap.</span></li>
-      <li class="rv rv-tile"><span class="fi"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17v5M8 3h8l-1 6 3 3H6l3-3z"/></svg></span><b>Stats on Pause</b><span>See kills and deaths when you pause.</span></li>
-      <li class="rv rv-tile"><span class="fi"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg></span><b>Settings Backup</b><span>Save settings and crosshairs to a file.</span></li>
+      <li class="rv rv-tile"><span class="fi"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M7 16l5-12 5 12M9 12h6"/></svg></span><b>GUI Scale</b><span>Make the HUD, menus, chat and scoreboard smaller or larger. Your crosshair keeps its size.</span></li>
+      <li class="rv rv-tile"><span class="fi"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 18h18"/><path d="M8 12h8M8 12l2.5-2.5M8 12l2.5 2.5M16 12l-2.5-2.5M16 12l-2.5 2.5"/></svg></span><b>FOV (Black Bars)</b><span>See more of the map with black bars at the top and bottom. Only in matches.</span></li>
+      <li class="rv rv-tile"><span class="fi"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg></span><b>Legacy Skins &amp; Sounds</b><span>Bring back the classic gun models and the old weapon and game sounds.</span></li>
+      <li class="rv rv-tile"><span class="fi"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></span><b>Auto Fullscreen</b><span>Goes fullscreen like F11 when you click into a match.</span></li>
+      <li class="rv rv-tile"><span class="fi"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg></span><b>Tab Out Key</b><span>One key frees your mouse, so you can tab away without your camera snapping.</span></li>
+      <li class="rv rv-tile"><span class="fi"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 18a8.5 8.5 0 1 1 15 0"/><path d="M12 14.5l3.5-4.5"/><circle cx="12" cy="14.5" r="1.3"/></svg></span><b>Uncap FPS &amp; Target FPS</b><span>Run frames back to back while you're spawned in, or cap them at the rate you pick.</span></li>
+      <li class="rv rv-tile"><span class="fi"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.9L19 9.5l-5.2 1.6L12 16l-1.8-4.9L5 9.5l5.2-1.6z"/><path d="M19 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg></span><b>Disable All Particles</b><span>Hide explosion fire, yolk bursts, splats and bullets in one click. Smoke stays visible.</span></li>
+      <li class="rv rv-tile"><span class="fi"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17v5M8 3h8l-1 6 3 3H6l3-3z"/></svg></span><b>Pin Stats on Pause Menu</b><span>Your kills, deaths and KDR above the weapon select whenever you pause.</span></li>
+      <li class="rv rv-tile"><span class="fi"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M4 12h16M4 18h7"/></svg></span><b>Kill Bars &amp; Show Guns</b><span>Team-colored kill bars and the gun each player got the most kills with.</span></li>
+      <li class="rv rv-tile"><span class="fi"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18h16l1-10-5 4-4-7-4 7-5-4z"/></svg></span><b>King of the Coop Stats</b><span>Each player's time on the coop, captures and takeovers on the scoreboard.</span></li>
+      <li class="rv rv-tile"><span class="fi"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M20.5 16l-5-5-8 8"/></svg></span><b>Stats Style</b><span>Copy Image draws a match in Better HUD's look, or as one of 7 league result cards.</span></li>
+      <li class="rv rv-tile"><span class="fi"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg></span><b>Backups in Manage</b><span>Save all your settings and crosshairs to a file, then choose what to restore.</span></li>
     </ul>
   </div>
 </section>
 
 <section class="install" id="install">
   <div class="install-in">
-    <h2 class="rvg">How to install</h2>
+    <h2 class="rvg">Ready in about a minute.</h2>
+    <p class="sec-lede rv">Better HUD is a userscript: a small add-on that the free Tampermonkey extension runs on the Shell Shockers page.</p>
     <ol class="isteps">
       <li class="rv rv-card">
         <h3>Get Tampermonkey</h3>
-        <p>Add the free browser extension.</p>
+        <p>Add the free Tampermonkey extension to your browser. Violentmonkey works too.</p>
         <div class="card">
           <div class="br-row"><span>Chrome</span><span>Edge</span><span>Firefox</span><span>Opera GX</span></div>
           <div class="inst-btns" style="margin-top:10px"><a class="gbtn blue" href="https://www.tampermonkey.net/" target="_blank" rel="noopener">Get Tampermonkey</a></div>
@@ -240,7 +287,7 @@
       </li>
       <li class="rv rv-card">
         <h3>Install Better HUD</h3>
-        <p>Confirm Install in Tampermonkey.</p>
+        <p>Click Install. Tampermonkey opens its own page: press Install there too.</p>
         <div class="card">
           <div class="inst-btns">
             <a class="gbtn" href="https://raw.githubusercontent.com/Virojet/Shell-Shockers-Better-Hud-Mod/main/Shell-Shockers-Better-Hud.user.js"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Install</a>
@@ -249,8 +296,8 @@
         </div>
       </li>
       <li class="rv rv-card">
-        <h3>Open game settings</h3>
-        <p>Reload <a href="https://shellshock.io/" target="_blank" rel="noopener">Shell Shockers</a>. Open MODS or CROSSHAIR.</p>
+        <h3>Open the MODS tab</h3>
+        <p>Go to <a href="https://shellshock.io/" target="_blank" rel="noopener">shellshock.io</a> and open Settings. MODS and CROSSHAIR are the last two tabs.</p>
         <div class="card card-win">
           <div class="mini-tabs" aria-hidden="true">
             <span class="gtab kb"><svg class="ico" viewBox="0 0 24 24"><rect x="2" y="7" width="13" height="10" rx="2"/><path d="M5 10.5h1M8 10.5h1M11 10.5h1M5 13.5h7"/><rect x="17.5" y="6" width="5" height="9" rx="2.5"/></svg></span>
@@ -262,7 +309,8 @@
         </div>
       </li>
     </ol>
-    <p class="tip rv"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg><span><b>Tabs missing?</b> Enable <b>Allow User Scripts</b> in Tampermonkey’s extension settings if available.</span></p>
+    <p class="tip rv"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg><span><b>Nothing happens in step 3?</b> Chrome, Edge, Brave and Opera need <b>Allow User Scripts</b> turned on for Tampermonkey on the Extensions page.</span></p>
+    <p class="tip rv"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6L4 8.7"/><path d="M4 3.5v5.2h5.2"/></svg><span><b>Updates come by themselves.</b> Tampermonkey checks for new versions, and the bottom of the MODS tab says when you're up to date.</span></p>
   </div>
 </section>
 
@@ -271,23 +319,23 @@
     <h2 class="sec-title center rvg" id="faq-h">Questions</h2>
     <details class="rv">
       <summary>Is Better HUD free?</summary>
-      <p>Yes. Free and open source under the MIT license.</p>
+      <p>Yes. It's free and open source under the MIT license, and the full script is on GitHub and Greasy Fork.</p>
     </details>
     <details class="rv">
-      <summary>Which browsers work?</summary>
-      <p>Desktop Chrome, Edge, Firefox and Opera GX with Tampermonkey.</p>
+      <summary>Which browsers does it work in?</summary>
+      <p>Chrome, Edge, Firefox and Opera GX, with Tampermonkey. Violentmonkey works too.</p>
     </details>
     <details class="rv">
       <summary>Where are my stats saved?</summary>
-      <p>In your browser. You can export them anytime.</p>
+      <p>In your own browser, on your computer. You choose how many matches to keep with Saved Match Limit, and you can export them.</p>
     </details>
     <details class="rv">
       <summary>How do I change a setting back?</summary>
-      <p>In MODS, use Reset on any changed setting.</p>
+      <p>Every setting has a short tip in the MODS tab. Turn on Show Changed Tab to see only the settings you've changed, each with its own Reset.</p>
     </details>
     <details class="rv">
-      <summary>Need help?</summary>
-      <p>Ask on Discord or open a GitHub issue.</p>
+      <summary>Where do I ask for help or a new feature?</summary>
+      <p>On the Better HUD Discord, or open an issue on GitHub.</p>
     </details>
   </div>
 </section>
@@ -298,8 +346,9 @@
   <div class="foot-in rv">
     <div class="foot-pill">
       <svg class="foot-egg" aria-hidden="true" focusable="false"><use href="#egg"/></svg>
-      <span>Better HUD v6.7.1</span>
-      <a class="foot-by" href="https://youtube.com/@subtovirojet?sub_confirmation=1" target="_blank" rel="noopener">Created by Virojet</a>
+      <span>Better HUD v6.9.0</span>
+      <span class="gf-st">Latest</span>
+      <span class="foot-by">Created by Virojet</span>
       <div class="foot-links">
         <a href="archive/">Mod library archive</a>
         <a href="https://discord.com/invite/yWnDAYKA9n" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 6.5a14 14 0 0 1 7 0M7.5 17.5a14 14 0 0 0 9 0"/><path d="M8.5 6.5 7 5.5C5.3 5.9 4.2 6.6 3.5 7.3 2.1 10 1.6 13.2 2 16.6c1.5 1.2 3.2 2 4.6 2.4l1.1-2M15.5 6.5l1.5-1c1.7.4 2.8 1.1 3.5 1.8 1.4 2.7 1.9 5.9 1.5 9.3-1.5 1.2-3.2 2-4.6 2.4l-1.1-2"/><circle cx="9" cy="12.5" r="1.4"/><circle cx="15" cy="12.5" r="1.4"/></svg>Discord</a>
@@ -308,7 +357,7 @@
         <a href="https://greasyfork.org/scripts/599225" target="_blank" rel="noopener">Greasy Fork</a>
       </div>
     </div>
-    <p class="foot-note">Unofficial Shell Shockers mod.</p>
+    <p class="foot-note">A fan-made mod for Shell Shockers. Not affiliated with Blue Wizard Digital.</p>
   </div>
 </footer>
 
